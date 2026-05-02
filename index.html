@@ -83,7 +83,12 @@ nav ul li a:hover {
 
 /* SECTIONS */
 section {
-    padding: 80px 60px;
+    padding: 50px 60px;
+}
+    @media (max-width: 768px) {
+    section {
+        padding: 40px 20px;
+    }
 }
 
 .section-title {
@@ -92,6 +97,7 @@ section {
     color: #ffffff ;
     text-align: center;
 }
+
 
 /* ABOUT */
 .about {
@@ -222,6 +228,12 @@ footer p {
 .insta-btn:hover {
     background: #d4af37;
     transform: scale(1.05);
+}
+    @media (max-width: 768px) {
+    .gallery {
+        grid-template-columns: repeat(2, 1fr); /* 2 images per row */
+        gap: 10px;
+    }
 }
 </style>
 </head>
