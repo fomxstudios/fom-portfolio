@@ -312,16 +312,25 @@ footer p {
     background: #fff;
 }
 
-/* HIDE DESKTOP GRID ON MOBILE */
-@media (max-width: 768px) {
+/* DESKTOP: show grid, hide carousel */
+@media (min-width: 769px) {
     .gallery {
+        display: grid;
+    }
+
+    .mobile-carousel {
         display: none;
     }
 }
 
-@media (min-width: 769px) {
-    .mobile-carousel {
+/* MOBILE: show carousel, hide grid */
+@media (max-width: 768px) {
+    .gallery {
         display: none;
+    }
+
+    .mobile-carousel {
+        display: block;
     }
 }
 </style>
@@ -364,9 +373,9 @@ footer p {
 <!-- WORK / GALLERY -->
 <section id="work">
     <h2 class="section-title">Our Work</h2>
-   <div class="mobile-carousel">
 
-    <div class="carousel-track">
+    <!-- DESKTOP GRID -->
+    <div class="gallery">
         <img src="assets/work1.jpg">
         <img src="assets/work2.jpg">
         <img src="assets/work3.jpg">
@@ -379,9 +388,22 @@ footer p {
         <img src="assets/work10.jpg">
     </div>
 
-    <div class="dots"></div>
-
-</div>
+    <!-- MOBILE CAROUSEL -->
+    <div class="mobile-carousel">
+        <div class="carousel-track">
+            <img src="assets/work1.jpg">
+            <img src="assets/work2.jpg">
+            <img src="assets/work3.jpg">
+            <img src="assets/work4.jpg">
+            <img src="assets/work5.jpg">
+            <img src="assets/work6.jpg">
+            <img src="assets/work7.jpg">
+            <img src="assets/work8.jpg">
+            <img src="assets/work9.jpg">
+            <img src="assets/work10.jpg">
+        </div>
+        <div class="dots"></div>
+    </div>
 </section>
 
 <!-- VIDEOS -->
@@ -526,15 +548,15 @@ mobileLightbox.addEventListener("click", (e) => {
     }
 });
 </script>
-    <script>
+   <script>
 const track = document.querySelector(".carousel-track");
-const images = document.querySelectorAll(".carousel-track img");
+const carouselImages = document.querySelectorAll(".carousel-track img");
 const dotsContainer = document.querySelector(".dots");
 
 let index = 0;
 
 // Create dots
-images.forEach((_, i) => {
+carouselImages.forEach((_, i) => {
     const dot = document.createElement("span");
     if (i === 0) dot.classList.add("active");
     dotsContainer.appendChild(dot);
@@ -560,11 +582,11 @@ track.addEventListener("touchend", (e) => {
     let endX = e.changedTouches[0].clientX;
 
     if (startX - endX > 50) {
-        index = (index + 1) % images.length;
+        index = (index + 1) % carouselImages.length;
     }
 
     if (endX - startX > 50) {
-        index = (index - 1 + images.length) % images.length;
+        index = (index - 1 + carouselImages.length) % carouselImages.length;
     }
 
     updateCarousel();
