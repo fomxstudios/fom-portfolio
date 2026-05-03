@@ -271,6 +271,11 @@ footer p {
         display: none !important;
     }
 }
+    video {
+    width: 100%;
+    border-radius: 10px;
+    background: #000;
+}
 </style>
 </head>
 
@@ -334,13 +339,13 @@ footer p {
     <div class="video-grid">
 
         <!-- Replace with your video files -->
-        <video controls>
-            <source src="assets/video1.mp4" type="video/mp4">
-        </video>
+       <video controls poster="assets/video1-cover.jpg">
+    <source src="assets/video1.mp4" type="video/mp4">
+</video>
 
-        <video controls>
-            <source src="assets/video2.mp4" type="video/mp4">
-        </video>
+<video controls poster="assets/video2-cover.jpg">
+    <source src="assets/video2.mp4" type="video/mp4">
+</video>
 
     </div>
 </section>
