@@ -565,7 +565,8 @@ carouselImages.forEach((_, i) => {
 const dots = document.querySelectorAll(".dots span");
 
 function updateCarousel() {
-    track.style.transform = `translateX(-${index * 100}%)`;
+    const slideWidth = window.innerWidth; // use screen width
+    track.style.transform = `translateX(-${index * slideWidth}px)`;
 
     dots.forEach(dot => dot.classList.remove("active"));
     dots[index].classList.add("active");
