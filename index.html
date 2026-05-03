@@ -243,20 +243,29 @@ footer p {
 }
     /* MOBILE CAROUSEL */
 .mobile-carousel {
-    overflow: hidden;
-    position: relative;
+    display: none;
 }
 
-.carousel-track {
-    display: flex;
-    transition: transform 0.4s ease;
-    width: 100%;
-}
-
-.carousel-track img {
-    width: 100%;
-    flex-shrink: 0;
-    border-radius: 10px;
+@media (max-width: 768px) {
+    .gallery { display: none; }
+    .mobile-carousel {
+        display: block;
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        display: flex;
+        gap: 10px;
+    }
+    .mobile-carousel::-webkit-scrollbar {
+        display: none;
+    }
+    .mobile-carousel img {
+        scroll-snap-align: start;
+        flex-shrink: 0;
+        width: 90vw;
+        border-radius: 10px;
+    }
 }
 
 /* DOTS */
@@ -355,21 +364,18 @@ footer p {
     </div>
 
     <!-- MOBILE CAROUSEL -->
-    <div class="mobile-carousel">
-        <div class="carousel-track">
-            <img src="assets/work1.jpg">
-            <img src="assets/work2.jpg">
-            <img src="assets/work3.jpg">
-            <img src="assets/work4.jpg">
-            <img src="assets/work5.jpg">
-            <img src="assets/work6.jpg">
-            <img src="assets/work7.jpg">
-            <img src="assets/work8.jpg">
-            <img src="assets/work9.jpg">
-            <img src="assets/work10.jpg">
-        </div>
-        <div class="dots"></div>
-    </div>
+   <div class="mobile-carousel">
+    <img src="assets/work1.jpg" alt="Work 1">
+    <img src="assets/work2.jpg" alt="Work 2">
+    <img src="assets/work3.jpg" alt="Work 3">
+    <img src="assets/work4.jpg" alt="Work 4">
+    <img src="assets/work5.jpg" alt="Work 5">
+    <img src="assets/work6.jpg" alt="Work 6">
+    <img src="assets/work7.jpg" alt="Work 7">
+    <img src="assets/work8.jpg" alt="Work 8">
+    <img src="assets/work9.jpg" alt="Work 9">
+    <img src="assets/work10.jpg" alt="Work 10">
+</div>
 </section>
 
 <!-- VIDEOS -->
@@ -449,46 +455,5 @@ lightbox.onclick = (e) => {
 };
 </script>
 
-    
-   <script>
-const track = document.querySelector(".carousel-track");
-const carouselImages = document.querySelectorAll(".carousel-track img");
-const dotsContainer = document.querySelector(".dots");
-
-let index = 0;
-
-carouselImages.forEach((_, i) => {
-    const dot = document.createElement("span");
-    if (i === 0) dot.classList.add("active");
-    dotsContainer.appendChild(dot);
-});
-
-const dots = document.querySelectorAll(".dots span");
-
-function updateCarousel() {
-    const slideWidth = track.parentElement.offsetWidth; // ← more reliable than window.innerWidth
-    track.style.transform = `translateX(-${index * slideWidth}px)`;
-    dots.forEach(dot => dot.classList.remove("active"));
-    dots[index].classList.add("active");
-}
-
-let startX = 0;
-
-track.addEventListener("touchstart", (e) => {
-    startX = e.touches[0].clientX;
-});
-
-track.addEventListener("touchend", (e) => {
-    let endX = e.changedTouches[0].clientX;
-
-    if (startX - endX > 50) {
-        index = (index + 1) % carouselImages.length; // swipe left → next
-    } else if (endX - startX > 50) {                 // ← else if, not if
-        index = (index - 1 + carouselImages.length) % carouselImages.length; // swipe right → prev
-    }
-
-    updateCarousel();
-});
-</script>
 </body>
 </html>
