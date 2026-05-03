@@ -276,6 +276,54 @@ footer p {
     border-radius: 10px;
     background: #000;
 }
+    /* MOBILE CAROUSEL */
+.mobile-carousel {
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.4s ease;
+}
+
+.carousel-track img {
+    width: 100%;
+    flex-shrink: 0;
+    border-radius: 10px;
+}
+
+/* DOTS */
+.dots {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.dots span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin: 5px;
+    background: #777;
+    border-radius: 50%;
+}
+
+.dots .active {
+    background: #fff;
+}
+
+/* HIDE DESKTOP GRID ON MOBILE */
+@media (max-width: 768px) {
+    .gallery {
+        display: none;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-carousel {
+        display: none;
+    }
+}
 </style>
 </head>
 
@@ -316,9 +364,9 @@ footer p {
 <!-- WORK / GALLERY -->
 <section id="work">
     <h2 class="section-title">Our Work</h2>
-    <div class="gallery">
+   <div class="mobile-carousel">
 
-        <!-- Replace these images -->
+    <div class="carousel-track">
         <img src="assets/work1.jpg">
         <img src="assets/work2.jpg">
         <img src="assets/work3.jpg">
@@ -329,8 +377,11 @@ footer p {
         <img src="assets/work8.jpg">
         <img src="assets/work9.jpg">
         <img src="assets/work10.jpg">
-
     </div>
+
+    <div class="dots"></div>
+
+</div>
 </section>
 
 <!-- VIDEOS -->
@@ -473,6 +524,50 @@ mobileLightbox.addEventListener("click", (e) => {
     if (e.target === mobileLightbox) {
         mobileLightbox.style.display = "none";
     }
+});
+</script>
+    <script>
+const track = document.querySelector(".carousel-track");
+const images = document.querySelectorAll(".carousel-track img");
+const dotsContainer = document.querySelector(".dots");
+
+let index = 0;
+
+// Create dots
+images.forEach((_, i) => {
+    const dot = document.createElement("span");
+    if (i === 0) dot.classList.add("active");
+    dotsContainer.appendChild(dot);
+});
+
+const dots = document.querySelectorAll(".dots span");
+
+function updateCarousel() {
+    track.style.transform = `translateX(-${index * 100}%)`;
+
+    dots.forEach(dot => dot.classList.remove("active"));
+    dots[index].classList.add("active");
+}
+
+// Swipe
+let startX = 0;
+
+track.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+});
+
+track.addEventListener("touchend", (e) => {
+    let endX = e.changedTouches[0].clientX;
+
+    if (startX - endX > 50) {
+        index = (index + 1) % images.length;
+    }
+
+    if (endX - startX > 50) {
+        index = (index - 1 + images.length) % images.length;
+    }
+
+    updateCarousel();
 });
 </script>
 </body>
