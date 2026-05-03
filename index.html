@@ -456,7 +456,6 @@ const dotsContainer = document.querySelector(".dots");
 
 let index = 0;
 
-// Create dots
 carouselImages.forEach((_, i) => {
     const dot = document.createElement("span");
     if (i === 0) dot.classList.add("active");
@@ -466,14 +465,12 @@ carouselImages.forEach((_, i) => {
 const dots = document.querySelectorAll(".dots span");
 
 function updateCarousel() {
-    const slideWidth = window.innerWidth; // use screen width
+    const slideWidth = track.parentElement.offsetWidth; // ← more reliable than window.innerWidth
     track.style.transform = `translateX(-${index * slideWidth}px)`;
-
     dots.forEach(dot => dot.classList.remove("active"));
     dots[index].classList.add("active");
 }
 
-// Swipe
 let startX = 0;
 
 track.addEventListener("touchstart", (e) => {
@@ -484,11 +481,9 @@ track.addEventListener("touchend", (e) => {
     let endX = e.changedTouches[0].clientX;
 
     if (startX - endX > 50) {
-        index = (index + 1) % carouselImages.length;
-    }
-
-    if (endX - startX > 50) {
-        index = (index - 1 + carouselImages.length) % carouselImages.length;
+        index = (index + 1) % carouselImages.length; // swipe left → next
+    } else if (endX - startX > 50) {                 // ← else if, not if
+        index = (index - 1 + carouselImages.length) % carouselImages.length; // swipe right → prev
     }
 
     updateCarousel();
