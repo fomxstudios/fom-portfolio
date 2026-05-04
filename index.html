@@ -297,6 +297,14 @@ footer p {
         display: none;
     }
 }
+    @media (max-width: 768px) {
+    .dots {
+        display: flex;
+        justify-content: center;
+        margin-top: 12px;
+        gap: 6px;
+    }
+}
 
 </style>
 </head>
@@ -366,6 +374,7 @@ footer p {
     <img src="assets/work9.jpg" alt="Work 9">
     <img src="assets/work10.jpg" alt="Work 10">
 </div>
+    <div class="dots" id="carousel-dots"></div>
 </section>
 
 <!-- VIDEOS -->
@@ -443,6 +452,25 @@ lightbox.onclick = (e) => {
         lightbox.style.display = "none";
     }
 };
+</script>
+    <script>
+const carousel = document.querySelector(".mobile-carousel");
+const dotsContainer = document.getElementById("carousel-dots");
+const totalImages = document.querySelectorAll(".mobile-carousel img").length;
+
+for (let i = 0; i < totalImages; i++) {
+    const dot = document.createElement("span");
+    if (i === 0) dot.classList.add("active");
+    dotsContainer.appendChild(dot);
+}
+
+const dots = dotsContainer.querySelectorAll("span");
+
+carousel.addEventListener("scroll", () => {
+    const index = Math.round(carousel.scrollLeft / carousel.offsetWidth);
+    dots.forEach(d => d.classList.remove("active"));
+    if (dots[index]) dots[index].classList.add("active");
+});
 </script>
 
 </body>
