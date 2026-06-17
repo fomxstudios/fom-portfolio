@@ -5,15 +5,73 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FOM Studios | Policy</title>
 
-<link rel="stylesheet" href="style.css">
-
 <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    scroll-behavior: smooth;
+}
+
 body {
     background: #0f0f0f;
     color: white;
     font-family: Arial, sans-serif;
 }
 
+/* NAVBAR */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    background: #111;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav img {
+    height: 50px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color: #c9a227;
+}
+
+/* FOOTER */
+footer {
+    background: #111;
+    padding: 40px;
+    text-align: center;
+}
+
+footer p {
+    margin: 8px 0;
+    opacity: 0.8;
+}
+
+.section-title {
+    font-size: 32px;
+    margin-bottom: 30px;
+    color: #ffffff;
+    text-align: center;
+}
+
+/* POLICY STYLES */
 .policy-container {
     max-width: 1000px;
     margin: auto;
@@ -53,15 +111,38 @@ body {
     width: 250px;
     max-width: 80%;
 }
+
+.insta-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: #ffffff;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
+.insta-btn:hover {
+    background: #dd2a7b;
+    transform: scale(1.05);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<!-- SAME NAVBAR -->
+<!-- NAVBAR -->
 <nav>
     <img src="assets/logo.png" alt="FOM Logo">
-
     <ul>
         <li><a href="index.html#about">About</a></li>
         <li><a href="index.html#work">Work</a></li>
@@ -135,11 +216,9 @@ body {
         </ul>
     </div>
 
-  <a href="assets/FOM_Studios_Policy.pdf"
-   class="insta-btn"
-   target="_blank">
-   Download Full Agreement
-</a>
+    <a href="assets/FOM_Studios_Policy.pdf" class="insta-btn" target="_blank">
+        Download Full Agreement
+    </a>
 
     <!-- MASCOT -->
     <div class="policy-mascot">
@@ -148,17 +227,14 @@ body {
 
 </div>
 
-<!-- SAME FOOTER -->
+<!-- FOOTER -->
 <footer id="contact">
     <h2 class="section-title">Contact</h2>
-
     <p>Email: fomxstudios@gmail.com</p>
     <p>Phone: 073 755 3136</p>
     <p>Instagram: @fom_studios_</p>
     <p>Location: Johannesburg, South Africa</p>
-
     <br>
-
     <p style="font-size:12px; opacity:0.5;">
         © 2026 FOM Studios. All rights reserved.
     </p>
