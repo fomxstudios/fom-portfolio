@@ -591,22 +591,19 @@ footer.site-footer{
     section{ padding: 36px 0; }
     .hero-ctas{ max-width: 100%; }
 
-    /* about section: small image on the left, copy on the right.
-       The stat row breaks out to full page width below the
-       image+text row instead of squeezing into the narrow text
-       column — three stats don't fit comfortably next to a
-       96px image otherwise. */
+    /* about section on mobile: small mascot image centered on its
+       own row above the text, rather than side-by-side — keeps
+       the same small 88px size, just stacked instead of inline. */
     .about{
         display: flex;
-        flex-wrap: wrap;
-        align-items: flex-start;
+        flex-direction: column;
+        align-items: center;
         gap: 18px;
     }
-    .about-media{ flex: 0 0 110px; justify-content: center; }
+    .about-media{ flex: none; width: 100%; justify-content: center; }
     .about-media img{ max-width: 88px; margin: 0 auto; }
-    .about-copy{ flex: 1 1 auto; min-width: 0; }
+    .about-copy{ width: 100%; }
     .about-copy .stat-row{
-        flex-basis: 100%;
         flex-wrap: nowrap;
         justify-content: space-between;
         text-align: center;
@@ -692,7 +689,7 @@ footer.site-footer{
         <div class="wrap hero-copy">
             <span class="eyebrow" style="color: var(--ink-on-dark); opacity:0.85;">Johannesburg, South Africa</span>
             <h1>Every Frame<br>Tells a<br>Story.</h1>
-            <p class="lede">Photography, videography and creative storytelling, capturing sport, lifestyle and events with a cinematic edge.</p>
+            <p class="lede">Photography, videography<br>and creative storytelling,<br>capturing sport, lifestyle<br>and events with a cinematic<br>edge.</p>
             <div class="hero-ctas">
                 <a href="#contact" class="btn-pill filled" data-open-booking>Book a shoot</a>
                 <a href="#work" class="btn-pill">See our work</a>
