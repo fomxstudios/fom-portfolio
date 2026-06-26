@@ -3,494 +3,787 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FOM Studios | Portfolio</title>
+<title>FOM Studios | Photography &amp; Videography, Johannesburg</title>
+<meta name="description" content="FOM Studios — photography, videography and creative storytelling based in Johannesburg, South Africa.">
 
 <style>
-    @font-face {
-    font-family: 'ToxicRebelDrip-Regular';
-    src: url('assets/ToxicRebelDrip-Regular.ttf') format('truetype');
-}
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-    scroll-behavior: smooth;
+/* =========================================================
+   FOM STUDIOS — DESIGN TOKENS
+   Matched to tons.bike reference screenshots: warm off-white
+   studio background, charcoal text, floating pill header,
+   outlined pill buttons, no heavy dark sections.
+
+   Palette:
+     --bg        : #f1f0ec  (page background — warm studio gray)
+     --bg-pill   : #fafaf9  (floating header pill, gallery cards)
+     --bg-dark   : #2a2b2c  (used only for filled CTA / footer)
+     --ink       : #2a2b2c  (primary text — charcoal, not pure black)
+     --ink-soft  : #6f6f6d  (secondary text)
+     --ink-on-dark: #f1f0ec (text on dark footer/CTA)
+     --line      : #dcdad3  (hairline borders, pill outlines)
+     --accent    : #c9a227  (FOM's one warm accent — used sparingly)
+   Type:
+     One grotesk-style sans doing both display and body duty,
+     at different weights — matches tons.bike's single-family system.
+   ========================================================= */
+
+:root{
+    --bg: #f1f0ec;
+    --bg-pill: #fafaf9;
+    --bg-dark: #2a2b2c;
+    --ink: #2a2b2c;
+    --ink-soft: #6f6f6d;
+    --ink-on-dark: #f1f0ec;
+    --line: #dcdad3;
+    --accent: #c9a227;
+    --container: 1320px;
+    --gutter: clamp(20px, 5vw, 64px);
+    --radius-pill: 999px;
+    --radius-card: 20px;
 }
 
-body {
-    background: #0f0f0f;
-    color: #fff;
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior: smooth; }
+
+body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* NAVBAR */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 60px;
-    background: #111;
+img{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+button{ font-family: inherit; }
+:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.wrap{ max-width: var(--container); margin:0 auto; padding: 0 var(--gutter); }
+
+.eyebrow{
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+    display:block;
+    margin-bottom: 12px;
+}
+
+/* =========================== PILL HEADER =========================== */
+.nav-shell{
     position: sticky;
     top: 0;
     z-index: 1000;
+    padding: 18px var(--gutter) 0;
+    background: linear-gradient(180deg, var(--bg) 60%, transparent 100%);
+    pointer-events: none;
 }
 
-nav img {
-    height: 50px;
-}
-
-nav ul {
+nav.pill{
+    pointer-events: auto;
+    max-width: var(--container);
+    margin: 0 auto;
+    background: var(--bg-pill);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    padding: 14px 22px;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+
+.nav-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width: 38px; height: 38px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction:column;
+    gap: 5px;
+}
+.nav-toggle span{ width:18px; height:2px; background: var(--ink); display:block; border-radius: 2px; }
+
+.brand-mark{
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.nav-right{ display:flex; align-items:center; gap: 18px; }
+
+nav.pill .nav-links{
+    display:flex;
+    gap: 26px;
     list-style: none;
-    gap: 25px;
+}
+nav.pill .nav-links a{
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    transition: color 0.2s ease;
+}
+nav.pill .nav-links a:hover{ color: var(--ink-soft); }
+
+.nav-cta{
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-pill);
+    padding: 9px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
 }
 
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    transition: 0.3s;
+/* mobile slide-out menu */
+.mobile-menu{
+    position: fixed;
+    top: 0; left: 0;
+    height: 100%;
+    width: min(340px, 86vw);
+    background: var(--bg-pill);
+    z-index: 1100;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    padding: 28px 28px;
+    display:flex;
+    flex-direction:column;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.08);
 }
-
-nav ul li a:hover {
-    color: #c9a227;
+.mobile-menu.open{ transform: translateX(0); }
+.mobile-menu .close-menu{
+    align-self:flex-end;
+    background:none; border:none; font-size:28px; cursor:pointer; color:var(--ink);
+    line-height:1; margin-bottom: 20px;
 }
-
-/* HERO */
-.hero {
-    height: 90vh;
-    background: url('assets/hero.jpg') center/cover no-repeat;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-
-    /* dark overlay */
-    position: relative;
+.mobile-menu ul{ list-style:none; display:flex; flex-direction:column; }
+.mobile-menu ul li{ border-bottom: 1px solid var(--line); }
+.mobile-menu ul li a{ display:block; padding: 18px 4px; font-size: 19px; font-weight:600; color: var(--ink); }
+.mobile-menu .menu-media{
+    margin-top: 28px;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    background: var(--bg);
 }
-
-.hero::before {
-    content: "";
-    position: absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background: rgba(0,0,0,0.6);
-}
-.hero h1 {
-    font-family: 'ToxicRebelDrip-Regular', Arial, sans-serif;
-}
-.hero h1,
-.hero p {
-    position: relative;
-    z-index: 1;
-}
-
-/* SECTIONS */
-section {
-    padding: 50px 60px;
-}
-    @media (max-width: 768px) {
-    section {
-        padding: 40px 20px;
-    }
-}
-
-.section-title {
-    font-size: 32px;
-    margin-bottom: 30px;
-    color: #ffffff ;
-    text-align: center;
-}
-
-
-/* ABOUT */
-.about {
-    display: flex;
-    gap: 40px;
-    align-items: center;
-}
-
-.about img {
-    width: 250px;
-    border-radius: 10px;
-}
-
-.about p {
-    line-height: 1.6;
-    opacity: 0.9;
-}
-
-/* GALLERY */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
-}
-
-.gallery img {
-    width: 100%;
-    border-radius: 10px;
-    transition: 0.3s;
-}
-
-.gallery img:hover {
-    transform: scale(1.05);
-}
-
-/* VIDEO */
-.video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+.mobile-menu .menu-media img{ width:100%; height:100%; object-fit:cover; }
+.mobile-menu .menu-social{
+    margin-top: auto;
+    padding-top: 24px;
+    display:flex;
     gap: 20px;
 }
+.mobile-menu .menu-social a{ font-size: 13px; font-weight:600; color: var(--ink-soft); }
 
-video {
-    width: 100%;
-    border-radius: 10px;
+.scrim{
+    position: fixed; inset:0;
+    background: rgba(0,0,0,0.25);
+    z-index: 1050;
+    opacity:0;
+    pointer-events:none;
+    transition: opacity 0.3s ease;
+}
+.scrim.show{ opacity:1; pointer-events:auto; }
+
+/* =========================== HERO =========================== */
+.hero{ padding: 28px 0 0; }
+.hero-grid{
+    display:grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 48px;
+    align-items: center;
 }
 
-/* CONTACT */
-footer {
-    background: #111;
-    padding: 40px;
-    text-align: center;
+.hero-copy h1{
+    font-size: clamp(40px, 6vw, 76px);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.01em;
 }
 
-footer p {
-    margin: 8px 0;
-    opacity: 0.8;
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .about {
-        flex-direction: column;
-        text-align: center;
-    }
-}
-    /* LIGHTBOX */
-.lightbox {
-    display: none;
-    position: fixed;
-    z-index: 2000;
-    padding-top: 60px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.95);
-}
-
-.lightbox-content {
-    margin: auto;
-    display: block;
-    max-width: 90%;
-    max-height: 80%;
-    border-radius: 10px;
-}
-
-.close {
-    position: absolute;
-    top: 20px;
-    right: 40px;
-    color: white;
-    font-size: 40px;
-    cursor: pointer;
-}
-    .insta-box {
-    text-align: center;
-    max-width: 700px;
-    margin: auto;
-    padding: 40px 20px;
-    background: #111;
-    border-radius: 12px;
-}
-
-.insta-box p {
+.hero-copy p.lede{
     font-size: 18px;
-    opacity: 0.85;
-    margin-bottom: 25px;
-    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-top: 20px;
+    max-width: 36ch;
 }
 
-.insta-btn {
-    display: inline-block;
-    padding: 12px 30px;
-    background: #ffffff;
-    color: black;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 15px;
-    transition: 0.3s;
+.hero-ctas{
+    display:flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 32px;
+    max-width: 280px;
 }
 
-.insta-btn:hover {
-    background: #dd2a7b;
-    transform: scale(1.05);
+.btn-pill{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-pill);
+    padding: 15px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s ease;
+    text-align:center;
 }
-    @media (max-width: 768px) {
-    .gallery {
-        grid-template-columns: repeat(2, 1fr); /* 2 images per row */
-        gap: 10px;
-    }
+.btn-pill:hover{ background: var(--ink); color: var(--bg-pill); }
+
+.btn-pill.filled{
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--ink);
 }
-    
-    video {
-    width: 100%;
-    border-radius: 10px;
-    background: #000;
+.btn-pill.filled:hover{ background: #b5901f; border-color:#b5901f; color: var(--ink); }
+
+.hero-media{
+    position: relative;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    background: var(--bg-pill);
 }
-    /* MOBILE CAROUSEL */
-.mobile-carousel {
-    display: none;
+.hero-media img{ width:100%; height:100%; object-fit:cover; }
+
+/* =========================================================
+   ADDITION 1 — SERVICES STRIP
+   Quick-scan list of services right under the hero, styled as
+   outline pills echoing the hero CTAs. Edit labels to match
+   your real service offering.
+   ========================================================= */
+.services-strip{ padding: 56px 0 0; }
+.services-row{ display:flex; flex-wrap: wrap; gap: 12px; }
+.service-pill{
+    border: 1px solid var(--line);
+    background: var(--bg-pill);
+    border-radius: var(--radius-pill);
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-soft);
+}
+.service-pill strong{ color: var(--ink); font-weight: 700; }
+
+/* =========================== SECTION GENERAL =========================== */
+section{ padding: 88px 0; }
+section.tight{ padding: 64px 0; }
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+.section-head h2{
+    font-size: clamp(30px, 4.5vw, 46px);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+.section-head .section-note{
+    color: var(--ink-soft);
+    max-width: 32ch;
+    font-size: 15px;
 }
 
-@media (max-width: 768px) {
-    .gallery { display: none; }
-    .mobile-carousel {
-        display: block;
-        overflow-x: scroll;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        display: flex;
-        gap: 10px;
-    }
-    .mobile-carousel::-webkit-scrollbar {
-        display: none;
-    }
-    .mobile-carousel img {
-        scroll-snap-align: start;
-        flex-shrink: 0;
-        width: 90vw;
-        border-radius: 10px;
-    }
-}
+/* =========================== ABOUT =========================== */
+.about{ display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 56px; align-items: center; }
+.about-media{ border-radius: var(--radius-card); overflow: hidden; aspect-ratio: 4/5; background: var(--bg-pill); }
+.about-media img{ width:100%; height:100%; object-fit:cover; }
+.about-copy p{ font-size: 16.5px; color: var(--ink-soft); margin-bottom: 16px; max-width: 56ch; }
+.stat-row{ display:flex; gap: 36px; margin-top: 32px; flex-wrap: wrap; }
+.stat-row .num{ font-size: 32px; font-weight: 800; display:block; }
+.stat-row .label{ font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); }
 
-/* DOTS */
-.dots {
-    text-align: center;
-    margin-top: 10px;
+/* =========================================================
+   WORK / GALLERY — swipeable 3-up strip (the borrowed
+   signature element from the tons.bike "More products" row).
+   Desktop/tablet: horizontal scroll-snap row showing ~3 cards
+   with peeking edges; drag/scroll to see more.
+   Mobile: 1 full-width card per view, swipe, tap to enlarge.
+   ========================================================= */
+.gallery-scroller{
+    display:flex;
+    gap: 18px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
 }
+.gallery-scroller::-webkit-scrollbar{ display:none; }
 
-.dots span {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    margin: 5px;
-    background: #777;
+.g-card{ flex: 0 0 calc((100% - 36px) / 3); scroll-snap-align: start; cursor: pointer; }
+.g-card .g-media{ border-radius: var(--radius-card); overflow: hidden; aspect-ratio: 1/1; background: var(--bg-pill); }
+.g-card img{ width:100%; height:100%; object-fit:cover; transition: transform 0.4s ease; }
+.g-card:hover img{ transform: scale(1.04); }
+.g-card .g-caption{ margin-top: 12px; font-size: 14px; font-weight: 600; color: var(--ink-soft); }
+
+.gallery-controls{ display:flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+.gallery-arrow{
+    width: 44px; height: 44px;
     border-radius: 50%;
+    border: 1px solid var(--ink);
+    background: var(--bg-pill);
+    display:flex; align-items:center; justify-content:center;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s ease;
+}
+.gallery-arrow:hover{ background: var(--ink); color: var(--bg-pill); }
+
+/* =========================== VIDEOS =========================== */
+.video-grid{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.video-card{ border-radius: var(--radius-card); overflow: hidden; background: var(--bg-pill); border: 1px solid var(--line); }
+.video-card .v-frame{ position: relative; aspect-ratio: 16/9; background:#000; }
+.video-card video{ width:100%; height:100%; object-fit:cover; display:block; }
+.video-card .v-meta{ padding: 16px 20px; display:flex; justify-content:space-between; align-items:center; font-size: 13px; color: var(--ink-soft); font-weight: 600; }
+
+/* =========================================================
+   ADDITION 2 — TESTIMONIALS
+   ========================================================= */
+.testimonial-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.testimonial-card{ background: var(--bg-pill); border: 1px solid var(--line); border-radius: var(--radius-card); padding: 28px; }
+.testimonial-card .stars{ color: var(--accent); letter-spacing: 2px; margin-bottom: 14px; font-size: 14px; }
+.testimonial-card p.quote{ color: var(--ink-soft); font-size: 14.5px; margin-bottom: 18px; }
+.testimonial-card .who{ font-size: 13px; font-weight: 700; }
+.testimonial-card .role{ font-size: 12px; color: var(--ink-soft); }
+
+/* =========================================================
+   ADDITION 3 — BOOKING PROCESS
+   ========================================================= */
+.process-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.process-step{ border-top: 2px solid var(--line); padding-top: 18px; }
+.process-step .step-num{ font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 0.06em; display:block; margin-bottom: 10px; }
+.process-step h4{ font-size: 17px; margin-bottom: 6px; font-weight: 700; }
+.process-step p{ font-size: 14px; color: var(--ink-soft); }
+
+/* =========================== CTA BANDS =========================== */
+.cta-band{ background: var(--bg-pill); border: 1px solid var(--line); border-radius: var(--radius-card); }
+.cta-inner{ display:flex; justify-content:space-between; align-items:center; gap: 28px; flex-wrap: wrap; padding: 44px 40px; }
+.cta-inner h3{ font-size: clamp(24px, 3.6vw, 34px); max-width: 22ch; font-weight: 800; }
+.cta-inner p{ color: var(--ink-soft); max-width: 44ch; margin-top: 8px; font-size: 15px; }
+
+.cta-band.dark{ background: var(--bg-dark); border-color: var(--bg-dark); }
+.cta-band.dark h3{ color: var(--ink-on-dark); }
+.cta-band.dark p{ color: #b9b8b5; }
+.cta-band.dark .btn-pill{ border-color: var(--ink-on-dark); color: var(--ink-on-dark); }
+.cta-band.dark .btn-pill:hover{ background: var(--ink-on-dark); color: var(--ink); }
+
+/* =========================== FOOTER =========================== */
+footer.site-footer{
+    background: var(--bg-dark);
+    color: var(--ink-on-dark);
+    border-radius: var(--radius-card) var(--radius-card) 0 0;
+    margin-top: 24px;
+    padding: 64px 0 0;
+}
+.footer-grid{ display:grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 48px; border-bottom: 1px solid rgba(241,240,236,0.12); }
+.footer-brand p{ color: #b9b8b5; max-width: 32ch; font-size:14px; margin-top: 14px; }
+.footer-col h4{ font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color: var(--accent); margin-bottom:16px; }
+.footer-col ul{ list-style:none; display:flex; flex-direction:column; gap:10px; }
+.footer-col a{ color: #b9b8b5; font-size:14px; transition: color 0.2s ease; }
+.footer-col a:hover{ color: var(--ink-on-dark); }
+.footer-bottom{ display:flex; justify-content:space-between; align-items:center; padding:22px 0 28px; flex-wrap:wrap; gap:10px; }
+.footer-bottom p{ font-size:12px; color:#8a8986; }
+
+/* =========================== LIGHTBOX =========================== */
+.lightbox{
+    display:none;
+    position: fixed; inset:0;
+    z-index: 2000;
+    background-color: rgba(20,20,18,0.94);
+    padding: 60px 20px;
+    align-items: center;
+    justify-content: center;
+}
+.lightbox.show{ display:flex; }
+.lightbox-content{ max-width: 92vw; max-height: 85vh; border-radius: 14px; }
+.close{
+    position: absolute; top: 22px; right: 28px;
+    color: #fff; font-size: 36px; cursor: pointer; line-height:1; background:none; border:none;
 }
 
-.dots .active {
-    background: #fff;
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 1024px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .hero-media{ aspect-ratio: 16/9; order:-1; }
+    .about{ grid-template-columns: 1fr; }
+    .about-media{ aspect-ratio: 16/9; }
+    .g-card{ flex: 0 0 calc((100% - 18px) / 2); }
+    .footer-grid{ grid-template-columns: 1.2fr 1fr 1fr; }
+    .footer-col.col-services{ display:none; }
+    .testimonial-grid{ grid-template-columns: 1fr 1fr; }
+    .process-grid{ grid-template-columns: 1fr 1fr; }
 }
 
-/* DESKTOP: show grid, hide carousel */
-@media (min-width: 769px) {
-    .gallery {
-        display: grid;
-    }
-
-    .mobile-carousel {
-        display: none;
-    }
-}
-    @media (max-width: 768px) {
-    .dots {
-        display: flex;
-        justify-content: center;
-        margin-top: 12px;
-        gap: 6px;
-    }
+@media (max-width: 860px){
+    nav.pill .nav-links{ display:none; }
+    .nav-shell{ padding: 14px var(--gutter) 0; }
 }
 
+@media (max-width: 600px){
+    section{ padding: 56px 0; }
+    .hero-ctas{ max-width: 100%; }
+    .g-card{ flex: 0 0 88%; }
+    .g-card .g-media{ aspect-ratio: 4/5; }
+    .video-grid{ grid-template-columns: 1fr; }
+    .testimonial-grid{ grid-template-columns: 1fr; }
+    .process-grid{ grid-template-columns: 1fr; }
+    .cta-inner{ flex-direction: column; align-items:flex-start; padding: 32px 24px; }
+    .footer-grid{ grid-template-columns: 1fr 1fr; gap: 28px 20px; }
+    .footer-brand{ grid-column: span 2; }
+    .footer-bottom{ flex-direction: column; align-items:flex-start; }
+    .gallery-controls{ display:none; }
+}
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<nav>
-    <img src="assets/logo.png" alt="FOM Logo">
+<!-- SCRIM (mobile menu backdrop) -->
+<div class="scrim" id="scrim"></div>
+
+<!-- MOBILE SLIDE-OUT MENU -->
+<div class="mobile-menu" id="mobileMenu">
+    <button class="close-menu" id="closeMenu" aria-label="Close menu">&times;</button>
     <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#videos">Videos</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about" data-menu-link>About</a></li>
+        <li><a href="#work" data-menu-link>Work</a></li>
+        <li><a href="#videos" data-menu-link>Videos</a></li>
+        <li><a href="policy.html" data-menu-link>Policy</a></li>
+        <li><a href="#contact" data-menu-link>Contact</a></li>
     </ul>
-</nav>
+    <div class="menu-media">
+        <img src="assets/mascot.png" alt="FOM Studios mascot">
+    </div>
+    <div class="menu-social">
+        <a href="https://instagram.com/fom_studios_" target="_blank">Instagram</a>
+        <a href="mailto:fomxstudios@gmail.com">Email</a>
+    </div>
+</div>
+
+<!-- PILL HEADER -->
+<div class="nav-shell">
+    <nav class="pill">
+        <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+            <span></span><span></span>
+        </button>
+        <a href="index.html" class="brand-mark">FOM STUDIOS</a>
+        <div class="nav-right">
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#work">Work</a></li>
+                <li><a href="#videos">Videos</a></li>
+                <li><a href="policy.html">Policy</a></li>
+            </ul>
+            <a href="#contact" class="nav-cta">Book a shoot</a>
+        </div>
+    </nav>
+</div>
 
 <!-- HERO -->
 <div class="hero">
-    <h1>FOM Studios</h1>
-    <p>Photography • Videography • Creative Storytelling</p>
+    <div class="wrap hero-grid">
+        <div class="hero-copy">
+            <span class="eyebrow">Johannesburg, South Africa</span>
+            <h1>Show your<br>moments some<br>respect</h1>
+            <p class="lede">Photography, videography and creative storytelling — capturing sport, lifestyle and events with a cinematic edge.</p>
+            <div class="hero-ctas">
+                <a href="#contact" class="btn-pill filled">Book a shoot</a>
+                <a href="#work" class="btn-pill">See our work</a>
+            </div>
+        </div>
+        <div class="hero-media">
+            <img src="assets/hero.jpg" alt="FOM Studios cinematic photography">
+        </div>
+    </div>
 </div>
+
+<!-- =========================================================
+     ADDITION 1 — SERVICES STRIP (see CSS block of the same name)
+     ========================================================= -->
+<div class="services-strip">
+    <div class="wrap services-row">
+        <span class="service-pill"><strong>Sports</strong> · Action &amp; match day</span>
+        <span class="service-pill"><strong>Lifestyle</strong> · Editorial &amp; portrait</span>
+        <span class="service-pill"><strong>Events</strong> · Full coverage</span>
+        <span class="service-pill"><strong>Video</strong> · Reels &amp; highlights</span>
+    </div>
+</div>
+<!-- END ADDITION 1 -->
 
 <!-- ABOUT -->
 <section id="about">
-    <h2 class="section-title">About Us</h2>
-    <div class="about">
-        <img src="assets/mascot.png" alt="Mascot Image">
-        <p>
-            FOM Studios is a creative media brand specialising in photography, videography,
-            and visual storytelling. We focus on capturing moments with precision, emotion,
-            and a cinematic edge. Our work spans sports, lifestyle, events, and much more.
-            <br><br>
-            We aim to deliver high-quality visuals that tell powerful stories and elevate brands.
-        </p>
+    <div class="wrap">
+        <div class="about">
+            <div class="about-media">
+                <img src="assets/mascot.png" alt="FOM Studios mascot">
+            </div>
+            <div class="about-copy">
+                <span class="eyebrow">About Us</span>
+                <h2 style="font-size:clamp(28px,4vw,40px); font-weight:800; margin-bottom:18px;">A cinematic eye for the everyday</h2>
+                <p>FOM Studios is a creative media brand specialising in photography, videography and visual storytelling. We focus on capturing moments with precision, emotion and a cinematic edge.</p>
+                <p>Our work spans sports, lifestyle and events. We aim to deliver high-quality visuals that tell powerful stories and elevate brands.</p>
+                <div class="stat-row">
+                    <div><span class="num">10+</span><span class="label">Projects shot</span></div>
+                    <div><span class="num">2</span><span class="label">Disciplines</span></div>
+                    <div><span class="num">JHB</span><span class="label">Based in</span></div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
-<!-- WORK / GALLERY -->
+<!-- WORK / GALLERY — swipeable 3-up strip -->
 <section id="work">
-    <h2 class="section-title">Our Work</h2>
+    <div class="wrap">
+        <div class="section-head">
+            <div>
+                <span class="eyebrow">Selected Work</span>
+                <h2>Our Work</h2>
+            </div>
+            <p class="section-note">Swipe or scroll through recent shoots. Tap any image to view it larger.</p>
+        </div>
 
-    <!-- DESKTOP GRID -->
-    <div class="gallery">
-        <img src="assets/work1.jpg">
-        <img src="assets/work2.jpg">
-        <img src="assets/work3.jpg">
-        <img src="assets/work4.jpg">
-        <img src="assets/work5.jpg">
-        <img src="assets/work6.jpg">
-        <img src="assets/work7.jpg">
-        <img src="assets/work8.jpg">
-        <img src="assets/work9.jpg">
-        <img src="assets/work10.jpg">
+        <div class="gallery-scroller" id="galleryScroller">
+            <div class="g-card" data-full="assets/work1.jpg"><div class="g-media"><img src="assets/work1.jpg" alt="Work 1"></div><div class="g-caption">Match Day</div></div>
+            <div class="g-card" data-full="assets/work2.jpg"><div class="g-media"><img src="assets/work2.jpg" alt="Work 2"></div><div class="g-caption">Portrait Session</div></div>
+            <div class="g-card" data-full="assets/work3.jpg"><div class="g-media"><img src="assets/work3.jpg" alt="Work 3"></div><div class="g-caption">Studio Lifestyle</div></div>
+            <div class="g-card" data-full="assets/work4.jpg"><div class="g-media"><img src="assets/work4.jpg" alt="Work 4"></div><div class="g-caption">Event Coverage</div></div>
+            <div class="g-card" data-full="assets/work5.jpg"><div class="g-media"><img src="assets/work5.jpg" alt="Work 5"></div><div class="g-caption">Action Shot</div></div>
+            <div class="g-card" data-full="assets/work6.jpg"><div class="g-media"><img src="assets/work6.jpg" alt="Work 6"></div><div class="g-caption">Brand Shoot</div></div>
+            <div class="g-card" data-full="assets/work7.jpg"><div class="g-media"><img src="assets/work7.jpg" alt="Work 7"></div><div class="g-caption">Behind the Scenes</div></div>
+            <div class="g-card" data-full="assets/work8.jpg"><div class="g-media"><img src="assets/work8.jpg" alt="Work 8"></div><div class="g-caption">Sports Editorial</div></div>
+            <div class="g-card" data-full="assets/work9.jpg"><div class="g-media"><img src="assets/work9.jpg" alt="Work 9"></div><div class="g-caption">Candid Moments</div></div>
+            <div class="g-card" data-full="assets/work10.jpg"><div class="g-media"><img src="assets/work10.jpg" alt="Work 10"></div><div class="g-caption">Highlight Reel Still</div></div>
+        </div>
+
+        <div class="gallery-controls">
+            <button class="gallery-arrow" id="galleryPrev" aria-label="Previous">←</button>
+            <button class="gallery-arrow" id="galleryNext" aria-label="Next">→</button>
+        </div>
     </div>
-
-    <!-- MOBILE CAROUSEL -->
-   <div class="mobile-carousel">
-    <img src="assets/work1.jpg" alt="Work 1">
-    <img src="assets/work2.jpg" alt="Work 2">
-    <img src="assets/work3.jpg" alt="Work 3">
-    <img src="assets/work4.jpg" alt="Work 4">
-    <img src="assets/work5.jpg" alt="Work 5">
-    <img src="assets/work6.jpg" alt="Work 6">
-    <img src="assets/work7.jpg" alt="Work 7">
-    <img src="assets/work8.jpg" alt="Work 8">
-    <img src="assets/work9.jpg" alt="Work 9">
-    <img src="assets/work10.jpg" alt="Work 10">
-</div>
-    <div class="dots" id="carousel-dots"></div>
 </section>
 
 <!-- VIDEOS -->
-<section id="videos">
-    <h2 class="section-title">Videos</h2>
-    <div class="video-grid">
-
-        <!-- Replace with your video files -->
-       <video controls poster="assets/video1-cover.jpg">
-    <source src="assets/video1.mp4" type="video/mp4">
-</video>
-
-<video controls poster="assets/video2-cover.jpg">
-    <source src="assets/video2.mp4" type="video/mp4">
-</video>
-
+<section id="videos" class="tight">
+    <div class="wrap">
+        <div class="section-head">
+            <div>
+                <span class="eyebrow">Motion</span>
+                <h2>Videos</h2>
+            </div>
+            <p class="section-note">Highlight reels and behind-the-scenes footage from recent productions.</p>
+        </div>
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="v-frame">
+                    <video controls poster="assets/video1-cover.jpg">
+                        <source src="assets/video1.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="v-meta"><span>Reel 01</span><span>2026</span></div>
+            </div>
+            <div class="video-card">
+                <div class="v-frame">
+                    <video controls poster="assets/video2-cover.jpg">
+                        <source src="assets/video2.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="v-meta"><span>Reel 02</span><span>2026</span></div>
+            </div>
+        </div>
     </div>
 </section>
 
-    <!-- INSTAGRAM CTA -->
-<section id="instagram">
-    <h2 class="section-title">More Work</h2>
-
-    <div class="insta-box">
-        <p>
-            More can be seen on Instagram where we regularly post our latest shoots, behind-the-scenes content, and projects.
-        </p>
-
-        <a href="https://instagram.com/fom_studios_" target="_blank" class="insta-btn">
-            Open Instagram
-        </a>
+<!-- =========================================================
+     ADDITION 2 — TESTIMONIALS
+     Replace placeholder quotes/names with real client feedback.
+     ========================================================= -->
+<section class="tight">
+    <div class="wrap">
+        <div class="section-head">
+            <div>
+                <span class="eyebrow">Client Feedback</span>
+                <h2>What clients say</h2>
+            </div>
+        </div>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="quote">FOM Studios captured our match day with so much energy — the gallery was ready faster than we expected.</p>
+                <div class="who">Thabo M.</div>
+                <div class="role">Club Manager</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="quote">Professional, easy to work with, and the final video told a story we didn't even know we had.</p>
+                <div class="who">Lerato N.</div>
+                <div class="role">Event Organiser</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="quote">Our brand shoot felt effortless. Every shot looked like it belonged in a magazine.</p>
+                <div class="who">Sipho K.</div>
+                <div class="role">Founder</div>
+            </div>
+        </div>
     </div>
 </section>
-    
-    <!-- POLICY -->
-<section id="policy">
-    <h2 class="section-title">Our Policy</h2>
+<!-- END ADDITION 2 -->
 
-    <div class="insta-box">
-        <p>
-            Please review our photography and videography policy, including booking terms, cancellations, etc. 
-        </p>
+<!-- =========================================================
+     ADDITION 3 — BOOKING PROCESS
+     ========================================================= -->
+<section class="tight">
+    <div class="wrap">
+        <div class="section-head">
+            <div>
+                <span class="eyebrow">How It Works</span>
+                <h2>Booking a shoot</h2>
+            </div>
+        </div>
+        <div class="process-grid">
+            <div class="process-step"><span class="step-num">01</span><h4>Enquire</h4><p>Reach out with your date, location and what you need covered.</p></div>
+            <div class="process-step"><span class="step-num">02</span><h4>Confirm</h4><p>We lock in the booking with a deposit, per our policy.</p></div>
+            <div class="process-step"><span class="step-num">03</span><h4>Shoot</h4><p>On the day, we capture the moments that matter most.</p></div>
+            <div class="process-step"><span class="step-num">04</span><h4>Deliver</h4><p>Edited photos and video land in your inbox, ready to share.</p></div>
+        </div>
+    </div>
+</section>
+<!-- END ADDITION 3 -->
 
-        <a href="policy.html" class="insta-btn">
-            View Full Policy
-        </a>
+<!-- INSTAGRAM CTA -->
+<section class="tight">
+    <div class="wrap">
+        <div class="cta-band">
+            <div class="cta-inner">
+                <div>
+                    <h3>See more on Instagram</h3>
+                    <p>We regularly post our latest shoots, behind-the-scenes content, and projects.</p>
+                </div>
+                <a href="https://instagram.com/fom_studios_" target="_blank" class="btn-pill filled">Open Instagram</a>
+            </div>
+        </div>
     </div>
 </section>
 
-<!-- CONTACT -->
-<footer id="contact">
-    <h2 class="section-title">Contact</h2>
+<!-- POLICY CTA -->
+<section class="tight" style="padding-top:0;">
+    <div class="wrap">
+        <div class="cta-band dark">
+            <div class="cta-inner">
+                <div>
+                    <h3>Our Policy</h3>
+                    <p>Review our photography and videography policy, including booking terms and cancellations.</p>
+                </div>
+                <a href="policy.html" class="btn-pill">View Full Policy</a>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <p>Email: fomxstudios@gmail.com</p>
-    <p>Phone: 073 755 3136</p>
-    <p>Instagram: @fom_studios_</p>
-    <p>Location: Johannesburg, South Africa</p>
-
-    <br>
-    <p style="font-size:12px; opacity:0.5;">
-        © 2026 FOM Studios. All rights reserved.
-    </p>
+<!-- FOOTER / CONTACT -->
+<footer id="contact" class="site-footer">
+    <div class="wrap">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="brand-mark">FOM STUDIOS</div>
+                <p>Photography, videography and creative storytelling based in Johannesburg, South Africa.</p>
+            </div>
+            <div class="footer-col col-services">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#work">Sports</a></li>
+                    <li><a href="#work">Lifestyle</a></li>
+                    <li><a href="#work">Events</a></li>
+                    <li><a href="#videos">Video</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Site</h4>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#work">Work</a></li>
+                    <li><a href="policy.html">Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="mailto:fomxstudios@gmail.com">fomxstudios@gmail.com</a></li>
+                    <li><a href="tel:0737553136">073 755 3136</a></li>
+                    <li><a href="https://instagram.com/fom_studios_" target="_blank">@fom_studios_</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 FOM Studios. All rights reserved.</p>
+            <p>Johannesburg, South Africa</p>
+        </div>
+    </div>
 </footer>
-    
+
 <!-- LIGHTBOX -->
 <div id="lightbox" class="lightbox">
-    <span class="close">&times;</span>
-    <img class="lightbox-content" id="lightbox-img">
+    <button class="close" id="lightboxClose" aria-label="Close">&times;</button>
+    <img class="lightbox-content" id="lightbox-img" alt="">
 </div>
-    
-    <script>
-const images = document.querySelectorAll(".gallery img");
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightbox-img");
-const closeBtn = document.querySelector(".close");
 
-images.forEach(img => {
-    img.addEventListener("click", () => {
-        lightbox.style.display = "block";
-        lightboxImg.src = img.src;
+<script>
+/* ---- mobile slide-out menu ---- */
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+const closeMenu = document.getElementById('closeMenu');
+const scrim = document.getElementById('scrim');
+
+function openMenu(){
+    mobileMenu.classList.add('open');
+    scrim.classList.add('show');
+}
+function closeMenuFn(){
+    mobileMenu.classList.remove('open');
+    scrim.classList.remove('show');
+}
+navToggle.addEventListener('click', openMenu);
+closeMenu.addEventListener('click', closeMenuFn);
+scrim.addEventListener('click', closeMenuFn);
+document.querySelectorAll('[data-menu-link]').forEach(a => a.addEventListener('click', closeMenuFn));
+
+/* ---- gallery: swipe / scroll + arrow controls + click-to-enlarge ---- */
+const scroller = document.getElementById('galleryScroller');
+const prevBtn = document.getElementById('galleryPrev');
+const nextBtn = document.getElementById('galleryNext');
+
+function cardWidth(){
+    const card = scroller.querySelector('.g-card');
+    return card ? card.getBoundingClientRect().width + 18 : 300; // + gap
+}
+prevBtn.addEventListener('click', () => scroller.scrollBy({ left: -cardWidth(), behavior: 'smooth' }));
+nextBtn.addEventListener('click', () => scroller.scrollBy({ left: cardWidth(), behavior: 'smooth' }));
+
+/* tap/click any gallery image (desktop or mobile) to open it large */
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxClose = document.getElementById('lightboxClose');
+
+document.querySelectorAll('.g-card').forEach(card => {
+    card.addEventListener('click', () => {
+        lightboxImg.src = card.dataset.full;
+        lightbox.classList.add('show');
     });
 });
-
-closeBtn.onclick = () => {
-    lightbox.style.display = "none";
-};
-
-lightbox.onclick = (e) => {
-    if (e.target !== lightboxImg) {
-        lightbox.style.display = "none";
-    }
-};
-</script>
-    <script>
-const carousel = document.querySelector(".mobile-carousel");
-const dotsContainer = document.getElementById("carousel-dots");
-const totalImages = document.querySelectorAll(".mobile-carousel img").length;
-
-for (let i = 0; i < totalImages; i++) {
-    const dot = document.createElement("span");
-    if (i === 0) dot.classList.add("active");
-    dotsContainer.appendChild(dot);
-}
-
-const dots = dotsContainer.querySelectorAll("span");
-
-carousel.addEventListener("scroll", () => {
-    const index = Math.round(carousel.scrollLeft / carousel.offsetWidth);
-    dots.forEach(d => d.classList.remove("active"));
-    if (dots[index]) dots[index].classList.add("active");
+lightboxClose.addEventListener('click', () => lightbox.classList.remove('show'));
+lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) lightbox.classList.remove('show');
 });
 </script>
 
