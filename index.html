@@ -222,12 +222,10 @@ nav.pill .nav-links a:hover{ color: var(--ink-soft); }
     content:"";
     position:absolute;
     inset:0;
-    /* Light scrim: the new hero image has a white/light background
-       on the left (where the headline sits) and the subject on the
-       right, so text is now dark instead of light, and the overlay
-       only needs to soften contrast slightly rather than darken —
-       a dark scrim would muddy a white background. */
-    background: linear-gradient(90deg, rgba(241,240,236,0.35) 0%, rgba(241,240,236,0.12) 40%, rgba(241,240,236,0) 70%);
+    /* dark gradient on the left, where the headline and CTAs sit,
+       fading out toward the right so the image still reads through
+       there — needed for legible white text over the photo */
+    background: linear-gradient(90deg, rgba(20,20,18,0.55) 0%, rgba(20,20,18,0.32) 35%, rgba(20,20,18,0.05) 65%, rgba(20,20,18,0) 100%);
 }
 
 .hero-content{
@@ -242,7 +240,7 @@ nav.pill .nav-links a:hover{ color: var(--ink-soft); }
 
 .hero-copy{
     max-width: 640px;
-    margin: 0;
+    margin: 0 0 0 clamp(16px, 4vw, 56px);
 }
 
 .hero-copy h1{
@@ -250,14 +248,17 @@ nav.pill .nav-links a:hover{ color: var(--ink-soft); }
     font-weight: 800;
     line-height: 1.02;
     letter-spacing: -0.01em;
-    color: var(--ink);
+    color: var(--ink-on-dark);
+    text-shadow: 0 2px 24px rgba(0,0,0,0.18);
 }
 
 .hero-copy p.lede{
     font-size: 18px;
-    color: var(--ink-soft);
+    color: var(--ink-on-dark);
+    opacity: 0.92;
     margin-top: 20px;
     max-width: 36ch;
+    text-shadow: 0 1px 16px rgba(0,0,0,0.18);
 }
 
 .hero-ctas{
@@ -282,17 +283,15 @@ nav.pill .nav-links a:hover{ color: var(--ink-soft); }
 }
 .btn-pill:hover{ background: var(--ink); color: var(--bg-pill); }
 
-/* the outline "See our work" pill now just uses the site's
-   standard dark-on-light button styling — the previous frosted
-   light chrome was for a dark/busy photo background, which the
-   new white-background hero image no longer has */
+/* hero sits on an image with a dark left-side scrim, so its
+   outline pill needs light chrome to stay visible against that */
 .hero-ctas .btn-pill{
-    border-color: var(--ink);
-    color: var(--ink);
-    background: rgba(250,250,249,0.55);
+    border-color: var(--ink-on-dark);
+    color: var(--ink-on-dark);
+    background: rgba(20,20,18,0.18);
     backdrop-filter: blur(6px);
 }
-.hero-ctas .btn-pill:hover{ background: var(--ink); color: var(--bg-pill); }
+.hero-ctas .btn-pill:hover{ background: var(--ink-on-dark); color: var(--ink); }
 
 .btn-pill.filled{
     background: var(--accent);
@@ -691,7 +690,7 @@ footer.site-footer{
     </div>
     <div class="hero-content">
         <div class="wrap hero-copy">
-            <span class="eyebrow">Johannesburg, South Africa</span>
+            <span class="eyebrow" style="color: var(--ink-on-dark); opacity:0.85;">Johannesburg, South Africa</span>
             <h1>Show some<br>respect for<br>your moments</h1>
             <p class="lede">Photography, videography and creative storytelling — capturing sport, lifestyle and events with a cinematic edge.</p>
             <div class="hero-ctas">
