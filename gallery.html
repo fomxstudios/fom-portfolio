@@ -100,6 +100,8 @@ nav.pill .nav-links a.active{ color: var(--accent); font-weight: 700; }
     padding: 28px 28px;
     display:flex; flex-direction:column;
     box-shadow: 4px 0 24px rgba(0,0,0,0.08);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 .mobile-menu.open{ transform: translateX(0); }
 .mobile-menu .close-menu{ align-self:flex-end; background:none; border:none; font-size:28px; cursor:pointer; color:var(--ink); line-height:1; margin-bottom: 20px; }
@@ -108,8 +110,8 @@ nav.pill .nav-links a.active{ color: var(--accent); font-weight: 700; }
 .mobile-menu ul li a{ display:block; padding: 18px 4px; font-size: 19px; font-weight:600; color: var(--ink); }
 .mobile-menu ul li a.active{ color: var(--accent); }
 .mobile-menu .menu-media{ margin-top: 28px; display:flex; align-items:center; justify-content:center; }
-.mobile-menu .menu-media img{ width:100%; max-width: 220px; height:auto; object-fit:contain; margin: 0 auto; }
-.mobile-menu .menu-social{ margin-top: auto; padding-top: 24px; display:flex; gap: 20px; }
+.mobile-menu .menu-media img{ width:100%; max-width: 140px; height:auto; object-fit:contain; margin: 0 auto; }
+.mobile-menu .menu-social{ margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line); display:flex; gap: 20px; flex-shrink: 0; }
 .mobile-menu .menu-social a{ font-size: 13px; font-weight:600; color: var(--ink-soft); }
 
 .scrim{ position: fixed; inset:0; background: rgba(0,0,0,0.25); z-index: 1050; opacity:0; pointer-events:none; transition: opacity 0.3s ease; }
@@ -281,7 +283,7 @@ footer.site-footer{
         <li><a href="index.html#contact" data-menu-link>Contact</a></li>
     </ul>
     <div class="menu-media">
-        <img src="assets/mascot.png" alt="FOM Studios mascot">
+        <img src="assets/mascot-head-color.png" alt="FOM Studios mascot">
     </div>
     <div class="menu-social">
         <a href="https://instagram.com/fom_studios_" target="_blank">Instagram</a>
@@ -326,7 +328,7 @@ footer.site-footer{
      workN.jpg to assets/ and a new card below using the next
      number, picking whichever shape (b-big / b-wide / b-tall /
      b-square) keeps the mosaic balanced.
-     ========================================================= */
+     ========================================================= -->
 <section>
     <div class="wrap">
         <div class="bento" id="bentoGrid">
@@ -341,7 +343,7 @@ footer.site-footer{
             <div class="b-card b-square" data-full="assets/work9.jpg"><img src="assets/work9.jpg" alt="Work 9"><div class="b-caption">Candid Moments</div></div>
             <div class="b-card b-square" data-full="assets/work10.jpg"><img src="assets/work10.jpg" alt="Work 10"><div class="b-caption">Highlight Reel Still</div></div>
             <div class="b-card b-square" data-full="assets/work11.jpg"><img src="assets/work11.jpg" alt="Work 11"><div class="b-caption">Zaydaan</div></div>
-            <div class="b-card b-square" data-full="assets/work12.jpg"><img src="assets/work11.jpg" alt="Work 12"><div class="b-caption">Zaydaan</div></div>
+            <div class="b-card b-square" data-full="assets/work12.jpg"><img src="assets/work12.jpg" alt="Work 12"><div class="b-caption">Zaydaan</div></div>
         </div>
     </div>
 </section>
