@@ -4,241 +4,402 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FOM Studios | Policy</title>
+<meta name="description" content="FOM Studios booking, payment, cancellation and usage policy.">
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-    scroll-behavior: smooth;
+/* Tokens match index.html exactly — see that file for the full
+   comment explaining the palette choices. */
+:root{
+    --bg: #f1f0ec;
+    --bg-pill: #fafaf9;
+    --bg-dark: #2a2b2c;
+    --ink: #2a2b2c;
+    --ink-soft: #6f6f6d;
+    --ink-on-dark: #f1f0ec;
+    --line: #dcdad3;
+    --accent: #c9a227;
+    --container: 1320px;
+    --gutter: clamp(20px, 5vw, 64px);
+    --radius-pill: 999px;
+    --radius-card: 20px;
 }
 
-body {
-    background: #0f0f0f;
-    color: white;
-    font-family: Arial, sans-serif;
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior: smooth; }
+
+body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* NAVBAR */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 60px;
-    background: #111;
+img{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+button{ font-family: inherit; }
+:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.wrap{ max-width: var(--container); margin:0 auto; padding: 0 var(--gutter); }
+
+.eyebrow{
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+    display:block;
+    margin-bottom: 12px;
+}
+
+/* PILL HEADER — identical system to index.html */
+.nav-shell{
     position: sticky;
     top: 0;
     z-index: 1000;
+    padding: 18px var(--gutter) 0;
+    background: linear-gradient(180deg, var(--bg) 60%, transparent 100%);
+    pointer-events: none;
 }
-
-nav img {
-    height: 50px;
-}
-
-nav ul {
+nav.pill{
+    pointer-events: auto;
+    max-width: var(--container);
+    margin: 0 auto;
+    background: var(--bg-pill);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill);
+    padding: 14px 22px;
     display: flex;
-    list-style: none;
-    gap: 25px;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
 }
+.nav-toggle{
+    display:flex; align-items:center; justify-content:center;
+    width: 38px; height: 38px; background: none; border: none; cursor: pointer;
+    flex-direction:column; gap: 5px;
+}
+.nav-toggle span{ width:18px; height:2px; background: var(--ink); display:block; border-radius: 2px; }
+.brand-mark{ font-weight: 800; font-size: 18px; letter-spacing: 0.02em; white-space: nowrap; }
+.nav-right{ display:flex; align-items:center; gap: 18px; }
+nav.pill .nav-links{ display:flex; gap: 26px; list-style: none; }
+nav.pill .nav-links a{ font-size: 14px; font-weight: 500; color: var(--ink); transition: color 0.2s ease; }
+nav.pill .nav-links a:hover{ color: var(--ink-soft); }
+.nav-cta{ border: 1px solid var(--ink); border-radius: var(--radius-pill); padding: 9px 18px; font-size: 13px; font-weight: 600; white-space: nowrap; }
 
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    transition: 0.3s;
+/* mobile slide-out menu — identical system to index.html */
+.mobile-menu{
+    position: fixed; top: 0; left: 0; height: 100%;
+    width: min(340px, 86vw);
+    background: var(--bg-pill);
+    z-index: 1100;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    padding: 28px 28px;
+    display:flex; flex-direction:column;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.08);
 }
+.mobile-menu.open{ transform: translateX(0); }
+.mobile-menu .close-menu{ align-self:flex-end; background:none; border:none; font-size:28px; cursor:pointer; color:var(--ink); line-height:1; margin-bottom: 20px; }
+.mobile-menu ul{ list-style:none; display:flex; flex-direction:column; }
+.mobile-menu ul li{ border-bottom: 1px solid var(--line); }
+.mobile-menu ul li a{ display:block; padding: 18px 4px; font-size: 19px; font-weight:600; color: var(--ink); }
+.mobile-menu .menu-media{ margin-top: 28px; border-radius: var(--radius-card); overflow: hidden; aspect-ratio: 4/5; background: var(--bg); }
+.mobile-menu .menu-media img{ width:100%; height:100%; object-fit:cover; }
+.mobile-menu .menu-social{ margin-top: auto; padding-top: 24px; display:flex; gap: 20px; }
+.mobile-menu .menu-social a{ font-size: 13px; font-weight:600; color: var(--ink-soft); }
 
-nav ul li a:hover {
-    color: #c9a227;
-}
+.scrim{ position: fixed; inset:0; background: rgba(0,0,0,0.25); z-index: 1050; opacity:0; pointer-events:none; transition: opacity 0.3s ease; }
+.scrim.show{ opacity:1; pointer-events:auto; }
 
-/* FOOTER */
-footer {
-    background: #111;
-    padding: 40px;
-    text-align: center;
-}
+/* PAGE HEADER */
+.policy-hero{ padding: 56px 0 40px; }
+.policy-hero h1{ font-size: clamp(40px, 7vw, 68px); font-weight: 800; letter-spacing: -0.01em; }
+.policy-hero p{ color: var(--ink-soft); max-width: 52ch; margin-top: 16px; font-size: 16px; }
 
-footer p {
-    margin: 8px 0;
-    opacity: 0.8;
-}
+/* POLICY BODY */
+.policy-body{ padding: 16px 0 88px; }
+.policy-layout{ display:grid; grid-template-columns: 260px 1fr; gap: 56px; }
 
-.section-title {
-    font-size: 32px;
-    margin-bottom: 30px;
-    color: #ffffff;
-    text-align: center;
+.policy-toc{
+    position: sticky;
+    top: 110px;
+    align-self: start;
+    background: var(--bg-pill);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    padding: 24px;
 }
+.policy-toc h4{ font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 16px; }
+.policy-toc ul{ list-style:none; display:flex; flex-direction:column; gap:12px; }
+.policy-toc a{ color: var(--ink); text-decoration:none; font-size: 14px; font-weight: 500; transition: color 0.2s ease; }
+.policy-toc a:hover{ color: var(--ink-soft); }
 
-/* POLICY STYLES */
-.policy-container {
-    max-width: 1000px;
-    margin: auto;
-    padding: 60px 20px;
-}
+.policy-section{ padding-bottom: 36px; margin-bottom: 36px; border-bottom: 1px solid var(--line); }
+.policy-section:last-child{ border-bottom:none; margin-bottom:0; }
+.policy-section .step-num{ font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: 0.06em; display:block; margin-bottom: 8px; }
+.policy-section h2{ font-size: clamp(22px, 3vw, 28px); margin-bottom: 14px; font-weight: 800; }
+.policy-section p, .policy-section li{ line-height: 1.75; color: var(--ink-soft); font-size: 15px; }
+.policy-section ul{ padding-left: 20px; display:flex; flex-direction:column; gap:8px; }
 
-.policy-container h1 {
-    text-align: center;
-    margin-bottom: 40px;
-}
+.download-row{ margin-top: 36px; display:flex; align-items:center; gap: 20px; flex-wrap: wrap; }
 
-.policy-section {
-    margin-bottom: 40px;
+.btn-pill{
+    display:flex; align-items:center; justify-content:center;
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-pill);
+    padding: 14px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s ease;
 }
+.btn-pill:hover{ background: var(--ink); color: var(--bg-pill); }
+.btn-pill.filled{ background: var(--accent); border-color: var(--accent); color: var(--ink); }
+.btn-pill.filled:hover{ background: #b5901f; border-color:#b5901f; }
 
-.policy-section h2 {
-    color: white;
-    margin-bottom: 15px;
-}
+.policy-mascot{ text-align:center; margin: 28px 0 0; }
+.policy-mascot img{ width: 150px; max-width: 55%; border-radius: var(--radius-card); margin: 0 auto; }
 
-.policy-section p,
-.policy-section li {
-    line-height: 1.8;
-    opacity: 0.9;
+/* FOOTER — identical system to index.html */
+footer.site-footer{
+    background: var(--bg-dark);
+    color: var(--ink-on-dark);
+    border-radius: var(--radius-card) var(--radius-card) 0 0;
+    margin-top: 24px;
+    padding: 64px 0 0;
 }
-
-.policy-section ul {
-    padding-left: 20px;
-}
-
-.policy-mascot {
-    text-align: center;
-    margin: 80px 0 40px;
-}
-
-.policy-mascot img {
-    width: 250px;
-    max-width: 80%;
-}
-
-.insta-btn {
-    display: inline-block;
-    padding: 12px 30px;
-    background: #ffffff;
-    color: black;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 15px;
-    transition: 0.3s;
-}
-
-.insta-btn:hover {
-    background: #dd2a7b;
-    transform: scale(1.05);
-}
+.footer-grid{ display:grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 48px; border-bottom: 1px solid rgba(241,240,236,0.12); }
+.footer-brand p{ color: #b9b8b5; max-width: 32ch; font-size:14px; margin-top: 14px; }
+.footer-col h4{ font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color: var(--accent); margin-bottom:16px; }
+.footer-col ul{ list-style:none; display:flex; flex-direction:column; gap:10px; }
+.footer-col a{ color: #b9b8b5; font-size:14px; transition: color 0.2s ease; }
+.footer-col a:hover{ color: var(--ink-on-dark); }
+.footer-bottom{ display:flex; justify-content:space-between; align-items:center; padding:22px 0 28px; flex-wrap:wrap; gap:10px; }
+.footer-bottom p{ font-size:12px; color:#8a8986; }
 
 /* RESPONSIVE */
-@media (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        gap: 15px;
-    }
+@media (max-width: 900px){
+    .policy-layout{ grid-template-columns: 1fr; gap: 28px; }
+    .policy-toc{ position:static; }
+    .policy-toc ul{ flex-direction:row; flex-wrap:wrap; gap: 12px 20px; }
+    .footer-grid{ grid-template-columns: 1.2fr 1fr 1fr; }
+}
+
+@media (max-width: 860px){
+    nav.pill .nav-links{ display:none; }
+    .nav-shell{ padding: 14px var(--gutter) 0; }
+}
+
+@media (max-width: 600px){
+    .policy-hero{ padding: 40px 0 28px; }
+    .policy-body{ padding: 8px 0 64px; }
+    .footer-grid{ grid-template-columns: 1fr 1fr; gap: 28px 20px; }
+    .footer-brand{ grid-column: span 2; }
+    .footer-bottom{ flex-direction:column; align-items:flex-start; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<nav>
-    <img src="assets/logo.png" alt="FOM Logo">
+<!-- SCRIM (mobile menu backdrop) -->
+<div class="scrim" id="scrim"></div>
+
+<!-- MOBILE SLIDE-OUT MENU -->
+<div class="mobile-menu" id="mobileMenu">
+    <button class="close-menu" id="closeMenu" aria-label="Close menu">&times;</button>
     <ul>
-        <li><a href="index.html#about">About</a></li>
-        <li><a href="index.html#work">Work</a></li>
-        <li><a href="index.html#videos">Videos</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="index.html#about" data-menu-link>About</a></li>
+        <li><a href="index.html#work" data-menu-link>Work</a></li>
+        <li><a href="index.html#videos" data-menu-link>Videos</a></li>
+        <li><a href="policy.html" data-menu-link>Policy</a></li>
+        <li><a href="index.html#contact" data-menu-link>Contact</a></li>
     </ul>
-</nav>
-
-<div class="policy-container">
-
-    <h1>FOM Studios Policy</h1>
-
-    <div class="policy-section">
-        <h2>Services</h2>
-        <p>
-            FOM Studios provides photography and videography services including shooting, editing and delivery of final media.
-        </p>
+    <div class="menu-media">
+        <img src="assets/mascot.png" alt="FOM Studios mascot">
     </div>
-
-    <div class="policy-section">
-        <h2>Booking & Payment Terms</h2>
-        <ul>
-            <li>50% non-refundable deposit required.</li>
-            <li>Remaining balance payable before the shoot date.</li>
-            <li>No services rendered without full payment.</li>
-            <li>Payment confirms acceptance of this agreement.</li>
-        </ul>
+    <div class="menu-social">
+        <a href="https://instagram.com/fom_studios_" target="_blank">Instagram</a>
+        <a href="mailto:fomxstudios@gmail.com">Email</a>
     </div>
+</div>
 
-    <div class="policy-section">
-        <h2>Cancellation Policy</h2>
-        <ul>
-            <li>Deposit is non-refundable.</li>
-            <li>Cancellations more than 10 days before the shoot incur no additional payment.</li>
-            <li>Cancellations less than 10 days before the shoot incur an additional fee equal to 20% of the outstanding balance.</li>
-            <li>Cancellations must be submitted in writing.</li>
-        </ul>
+<!-- PILL HEADER -->
+<div class="nav-shell">
+    <nav class="pill">
+        <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+            <span></span><span></span>
+        </button>
+        <a href="index.html" class="brand-mark">FOM STUDIOS</a>
+        <div class="nav-right">
+            <ul class="nav-links">
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="index.html#videos">Videos</a></li>
+                <li><a href="policy.html">Policy</a></li>
+            </ul>
+            <a href="index.html#contact" class="nav-cta">Book a shoot</a>
+        </div>
+    </nav>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="policy-hero">
+    <div class="wrap">
+        <span class="eyebrow">Booking Terms</span>
+        <h1>Our Policy</h1>
+        <p>Everything you need to know before booking — payment, cancellations, rescheduling, delivery and usage rights.</p>
     </div>
+</div>
 
-    <div class="policy-section">
-        <h2>Rescheduling</h2>
-        <ul>
-            <li>One reschedule permitted per booking.</li>
-            <li>Payments transfer to the new date.</li>
-            <li>Subject to availability.</li>
-        </ul>
+<!-- POLICY BODY -->
+<div class="policy-body">
+    <div class="wrap policy-layout">
+
+        <aside class="policy-toc">
+            <h4>On this page</h4>
+            <ul>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#booking">Booking &amp; Payment</a></li>
+                <li><a href="#cancellation">Cancellation</a></li>
+                <li><a href="#rescheduling">Rescheduling</a></li>
+                <li><a href="#delivery">Content Delivery</a></li>
+                <li><a href="#usage">Creative Control &amp; Usage</a></li>
+                <li><a href="#liability">Liability</a></li>
+            </ul>
+        </aside>
+
+        <div class="policy-main">
+
+            <div class="policy-section" id="services">
+                <span class="step-num">01</span>
+                <h2>Services</h2>
+                <p>FOM Studios provides photography and videography services including shooting, editing and delivery of final media.</p>
+            </div>
+
+            <div class="policy-section" id="booking">
+                <span class="step-num">02</span>
+                <h2>Booking &amp; Payment Terms</h2>
+                <ul>
+                    <li>50% non-refundable deposit required.</li>
+                    <li>Remaining balance payable before the shoot date.</li>
+                    <li>No services rendered without full payment.</li>
+                    <li>Payment confirms acceptance of this agreement.</li>
+                </ul>
+            </div>
+
+            <div class="policy-section" id="cancellation">
+                <span class="step-num">03</span>
+                <h2>Cancellation Policy</h2>
+                <ul>
+                    <li>Deposit is non-refundable.</li>
+                    <li>Cancellations more than 10 days before the shoot incur no additional payment.</li>
+                    <li>Cancellations less than 10 days before the shoot incur an additional fee equal to 20% of the outstanding balance.</li>
+                    <li>Cancellations must be submitted in writing.</li>
+                </ul>
+            </div>
+
+            <div class="policy-section" id="rescheduling">
+                <span class="step-num">04</span>
+                <h2>Rescheduling</h2>
+                <ul>
+                    <li>One reschedule permitted per booking.</li>
+                    <li>Payments transfer to the new date.</li>
+                    <li>Subject to availability.</li>
+                </ul>
+            </div>
+
+            <div class="policy-section" id="delivery">
+                <span class="step-num">05</span>
+                <h2>Content Delivery</h2>
+                <ul>
+                    <li>Delivery timelines communicated before booking.</li>
+                    <li>Rush delivery incurs a 20% fee.</li>
+                    <li>Raw files are not included unless agreed.</li>
+                </ul>
+            </div>
+
+            <div class="policy-section" id="usage">
+                <span class="step-num">06</span>
+                <h2>Creative Control &amp; Usage Rights</h2>
+                <ul>
+                    <li>FOM Studios retains creative control.</li>
+                    <li>Content may be used for portfolio and marketing purposes unless confidentiality is agreed in writing.</li>
+                </ul>
+            </div>
+
+            <div class="policy-section" id="liability">
+                <span class="step-num">07</span>
+                <h2>Liability</h2>
+                <ul>
+                    <li>FOM Studios is not liable for circumstances beyond reasonable control.</li>
+                    <li>Force majeure provisions apply.</li>
+                </ul>
+            </div>
+
+            <div class="download-row">
+                <a href="assets/FOM_Studios_Policy.pdf" class="btn-pill filled" target="_blank">Download Full Agreement</a>
+            </div>
+
+            <div class="policy-mascot">
+                <img src="assets/mascot.png" alt="FOM Studios mascot">
+            </div>
+
+        </div>
     </div>
-
-    <div class="policy-section">
-        <h2>Content Delivery</h2>
-        <ul>
-            <li>Delivery timelines communicated before booking.</li>
-            <li>Rush delivery incurs a 20% fee.</li>
-            <li>Raw files are not included unless agreed.</li>
-        </ul>
-    </div>
-
-    <div class="policy-section">
-        <h2>Creative Control & Usage Rights</h2>
-        <ul>
-            <li>FOM Studios retains creative control.</li>
-            <li>Content may be used for portfolio and marketing purposes unless confidentiality is agreed in writing.</li>
-        </ul>
-    </div>
-
-    <div class="policy-section">
-        <h2>Liability</h2>
-        <ul>
-            <li>FOM Studios is not liable for circumstances beyond reasonable control.</li>
-            <li>Force majeure provisions apply.</li>
-        </ul>
-    </div>
-
-    <a href="assets/FOM_Studios_Policy.pdf" class="insta-btn" target="_blank">
-        Download Full Agreement
-    </a>
-
-    <!-- MASCOT -->
-    <div class="policy-mascot">
-        <img src="assets/mascot.png" alt="FOM Mascot">
-    </div>
-
 </div>
 
 <!-- FOOTER -->
-<footer id="contact">
-    <h2 class="section-title">Contact</h2>
-    <p>Email: fomxstudios@gmail.com</p>
-    <p>Phone: 073 755 3136</p>
-    <p>Instagram: @fom_studios_</p>
-    <p>Location: Johannesburg, South Africa</p>
-    <br>
-    <p style="font-size:12px; opacity:0.5;">
-        © 2026 FOM Studios. All rights reserved.
-    </p>
+<footer id="contact" class="site-footer">
+    <div class="wrap">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="brand-mark">FOM STUDIOS</div>
+                <p>Photography, videography and creative storytelling based in Johannesburg, South Africa.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Site</h4>
+                <ul>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#work">Work</a></li>
+                    <li><a href="policy.html">Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="mailto:fomxstudios@gmail.com">fomxstudios@gmail.com</a></li>
+                    <li><a href="tel:0737553136">073 755 3136</a></li>
+                    <li><a href="https://instagram.com/fom_studios_" target="_blank">@fom_studios_</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Location</h4>
+                <ul>
+                    <li><span>Johannesburg, South Africa</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 FOM Studios. All rights reserved.</p>
+            <p>Johannesburg, South Africa</p>
+        </div>
+    </div>
 </footer>
+
+<script>
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+const closeMenu = document.getElementById('closeMenu');
+const scrim = document.getElementById('scrim');
+
+function openMenu(){ mobileMenu.classList.add('open'); scrim.classList.add('show'); }
+function closeMenuFn(){ mobileMenu.classList.remove('open'); scrim.classList.remove('show'); }
+navToggle.addEventListener('click', openMenu);
+closeMenu.addEventListener('click', closeMenuFn);
+scrim.addEventListener('click', closeMenuFn);
+document.querySelectorAll('[data-menu-link]').forEach(a => a.addEventListener('click', closeMenuFn));
+</script>
 
 </body>
 </html>
