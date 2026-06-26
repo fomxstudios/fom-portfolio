@@ -251,17 +251,23 @@ footer.site-footer{
 }
 
 @media (max-width: 700px){
-    /* on small screens the mosaic flattens to a single column so
-       every image gets full width — varied cell sizes only read
-       well with at least 2-3 columns of room */
-    .bento{ grid-template-columns: 1fr; grid-auto-rows: auto; gap: 14px; }
-    .b-big, .b-wide, .b-tall, .b-square{ grid-column: span 1; grid-row: span 1; }
-    .b-card{ aspect-ratio: 4/5; }
-    .b-card .b-caption{ opacity: 1; transform: none; }
+    /* real bento on mobile too, just at a smaller scale: 2 columns
+       instead of 4, shorter row height. The same shape classes
+       (b-big / b-wide / b-tall / b-square) tile perfectly at 2
+       columns with zero gaps — big and wide both become full-width,
+       tall and square both become a single column. */
+    .bento{ grid-template-columns: repeat(2, 1fr); grid-auto-rows: 150px; gap: 10px; }
+    .b-card .b-caption{ opacity: 1; transform: none; padding: 10px 12px 8px; font-size: 12px; }
     .gallery-hero{ padding: 40px 0 4px; }
     .footer-grid{ grid-template-columns: 1fr 1fr; gap: 28px 20px; }
     .footer-brand{ grid-column: span 2; }
     .footer-bottom{ flex-direction:column; align-items:flex-start; }
+}
+
+@media (max-width: 420px){
+    /* on very small phones, shrink the row height a bit further
+       so b-big (2x2) doesn't get uncomfortably tall */
+    .bento{ grid-auto-rows: 130px; gap: 8px; }
 }
 </style>
 </head>
@@ -278,7 +284,7 @@ footer.site-footer{
         <li><a href="index.html#about" data-menu-link>About</a></li>
         <li><a href="index.html#work" data-menu-link>Work</a></li>
         <li><a href="gallery.html" class="active" data-menu-link>Gallery</a></li>
-        <li><a href="index.html#videos" data-menu-link>Videos</a></li>
+        <li><a href="prices.html" data-menu-link>Prices</a></li>
         <li><a href="policy.html" data-menu-link>Policy</a></li>
         <li><a href="index.html#contact" data-menu-link>Contact</a></li>
     </ul>
@@ -303,7 +309,7 @@ footer.site-footer{
                 <li><a href="index.html#about">About</a></li>
                 <li><a href="index.html#work">Work</a></li>
                 <li><a href="gallery.html" class="active">Gallery</a></li>
-                <li><a href="index.html#videos">Videos</a></li>
+                <li><a href="prices.html">Prices</a></li>
                 <li><a href="policy.html">Policy</a></li>
             </ul>
             <a href="index.html#contact" class="nav-cta">Book a shoot</a>
@@ -344,12 +350,6 @@ footer.site-footer{
             <div class="b-card b-square" data-full="assets/work10.jpg"><img src="assets/work10.jpg" alt="Work 10"><div class="b-caption">Highlight Reel Still</div></div>
             <div class="b-card b-square" data-full="assets/work11.jpg"><img src="assets/work11.jpg" alt="Work 11"><div class="b-caption">Zaydaan</div></div>
             <div class="b-card b-square" data-full="assets/work12.jpg"><img src="assets/work12.jpg" alt="Work 12"><div class="b-caption">Zaydaan</div></div>
-           <div class="b-card b-square" data-full="assets/work13.jpg"><img src="assets/work13.jpg" alt="Work 13"><div class="b-caption">Kyle Oliver</div></div>
-           <div class="b-card b-square" data-full="assets/work14.jpg"><img src="assets/work14.jpg" alt="Work 14"><div class="b-caption">Motion Blur</div></div>
-           <div class="b-card b-wide" data-full="assets/work15.jpg"><img src="assets/work15.jpg" alt="Work 15"><div class="b-caption">Team Spirit</div></div>
-           <div class="b-card b-square" data-full="assets/work16.jpg"><img src="assets/work16.jpg" alt="Work 16"><div class="b-caption">Details</div></div>
-           <div class="b-card b-square" data-full="assets/work17.jpg"><img src="assets/work17.jpg" alt="Work 17"><div class="b-caption">Pixel Stretch</div></div>
-           <div class="b-card b-wide" data-full="assets/work18.jpg"><img src="assets/work18.jpg" alt="Work 18"><div class="b-caption">Zaydaan</div></div>
         </div>
     </div>
 </section>
@@ -368,6 +368,7 @@ footer.site-footer{
                     <li><a href="index.html#about">About</a></li>
                     <li><a href="index.html#work">Work</a></li>
                     <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="prices.html">Prices</a></li>
                     <li><a href="policy.html">Policy</a></li>
                 </ul>
             </div>
