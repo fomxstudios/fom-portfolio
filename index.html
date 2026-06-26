@@ -23,6 +23,9 @@
      --line      : #dcdad3  (hairline borders, pill outlines)
      --accent    : #02367B  (FOM brand blue — CTA fill, hovers, accents)
      --accent-hover: #022a5f (darker blue for hover/pressed states)
+     --accent-on-dark: #5B9AE0 (lighter tint of the same blue — used
+                        only where the accent sits on the dark footer
+                        background, since #02367B fails contrast there)
    Type:
      One grotesk-style sans doing both display and body duty,
      at different weights — matches tons.bike's single-family system.
@@ -38,6 +41,7 @@
     --line: #dcdad3;
     --accent: #02367B;
     --accent-hover: #022a5f;
+    --accent-on-dark: #5B9AE0;
     --container: 1320px;
     --gutter: clamp(20px, 5vw, 64px);
     --radius-pill: 999px;
@@ -348,7 +352,9 @@ section.tight{ padding: 36px 0; }
 .g-card:hover img{ transform: scale(1.04); }
 .g-card .g-caption{ margin-top: 12px; font-size: 14px; font-weight: 600; color: var(--ink-soft); }
 
-.gallery-controls{ display:flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+.gallery-controls{ display:flex; justify-content: space-between; align-items:center; gap: 10px; margin-top: 24px; }
+.gallery-arrows{ display:flex; gap: 10px; }
+.see-more-link{ padding: 12px 22px; font-size: 13px; }
 .gallery-arrow{
     width: 44px; height: 44px;
     border-radius: 50%;
@@ -409,7 +415,7 @@ footer.site-footer{
 }
 .footer-grid{ display:grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 48px; border-bottom: 1px solid rgba(241,240,236,0.12); }
 .footer-brand p{ color: #b9b8b5; max-width: 32ch; font-size:14px; margin-top: 14px; }
-.footer-col h4{ font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color: var(--accent); margin-bottom:16px; }
+.footer-col h4{ font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color: var(--accent-on-dark); margin-bottom:16px; }
 .footer-col ul{ list-style:none; display:flex; flex-direction:column; gap:10px; }
 .footer-col a{ color: #b9b8b5; font-size:14px; transition: color 0.2s ease; }
 .footer-col a:hover{ color: var(--ink-on-dark); }
@@ -576,6 +582,20 @@ footer.site-footer{
     .hero-content{ padding-top: 96px; }
     section{ padding: 36px 0; }
     .hero-ctas{ max-width: 100%; }
+
+    /* about section: small image on the left, copy on the right,
+       instead of a large full-width image stacked above the text */
+    .about{
+        display: flex;
+        align-items: flex-start;
+        gap: 18px;
+    }
+    .about-media{ flex: 0 0 96px; justify-content: flex-start; }
+    .about-media img{ max-width: 96px; }
+    .about-copy{ flex: 1 1 auto; min-width: 0; }
+    .stat-row{ justify-content: center; text-align: center; }
+    .stat-row > div{ flex: 1 1 0; }
+
     .g-card{ flex: 0 0 88%; }
     .g-card .g-media{ aspect-ratio: 4/5; }
     .video-grid{ grid-template-columns: 1fr; }
@@ -585,7 +605,7 @@ footer.site-footer{
     .footer-grid{ grid-template-columns: 1fr 1fr; gap: 28px 20px; }
     .footer-brand{ grid-column: span 2; }
     .footer-bottom{ flex-direction: column; align-items:flex-start; }
-    .gallery-controls{ display:none; }
+    .gallery-arrows{ display:none; }
 }
 </style>
 </head>
@@ -601,6 +621,7 @@ footer.site-footer{
     <ul>
         <li><a href="#about" data-menu-link>About</a></li>
         <li><a href="#work" data-menu-link>Work</a></li>
+        <li><a href="gallery.html" data-menu-link>Gallery</a></li>
         <li><a href="#videos" data-menu-link>Videos</a></li>
         <li><a href="policy.html" data-menu-link>Policy</a></li>
         <li><a href="#contact" data-menu-link>Contact</a></li>
@@ -625,6 +646,7 @@ footer.site-footer{
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#work">Work</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="#videos">Videos</a></li>
                 <li><a href="policy.html">Policy</a></li>
             </ul>
@@ -698,8 +720,11 @@ footer.site-footer{
         </div>
 
         <div class="gallery-controls">
-            <button class="gallery-arrow" id="galleryPrev" aria-label="Previous">←</button>
-            <button class="gallery-arrow" id="galleryNext" aria-label="Next">→</button>
+            <a href="gallery.html" class="btn-pill see-more-link">See more →</a>
+            <div class="gallery-arrows">
+                <button class="gallery-arrow" id="galleryPrev" aria-label="Previous">←</button>
+                <button class="gallery-arrow" id="galleryNext" aria-label="Next">→</button>
+            </div>
         </div>
     </div>
 </section>
@@ -844,6 +869,7 @@ footer.site-footer{
                 <ul>
                     <li><a href="#about">About</a></li>
                     <li><a href="#work">Work</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
                     <li><a href="policy.html">Policy</a></li>
                 </ul>
             </div>
