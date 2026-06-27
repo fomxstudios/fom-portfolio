@@ -168,17 +168,19 @@ nav.pill .nav-links a.active{ color: var(--accent); font-weight: 700; }
     overflow: hidden;
     background: var(--bg-dark);
     border: 2px solid var(--bg-dark);
+    padding: 6px;
 }
 
 .tier-toggle{
     width: 100%;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     gap: 14px;
     background: var(--bg-pill);
     border: none;
     border-radius: var(--radius-pill);
-    margin: 6px;
+    margin: 0;
     padding: 8px 18px 8px 8px;
     cursor: pointer;
     text-align: left;
@@ -320,6 +322,7 @@ nav.pill .nav-links a.active{ color: var(--accent); font-weight: 700; }
     overflow: hidden;
     background: var(--bg-dark);
     border: 2px solid var(--bg-dark);
+    padding: 6px;
 }
 .padel-header{
     display: flex;
@@ -327,7 +330,7 @@ nav.pill .nav-links a.active{ color: var(--accent); font-weight: 700; }
     gap: 16px;
     background: var(--bg-pill);
     border-radius: var(--radius-pill);
-    margin: 6px;
+    margin: 0;
     padding: 10px 22px 10px 8px;
 }
 .padel-header .tier-icon{ width: 56px; height: 56px; }
@@ -926,6 +929,40 @@ footer.site-footer{
                 <li>Additional Videos</li>
                 <li>Social Media Management</li>
             </ul>
+        </div>
+    </div>
+</section>
+
+<!-- =========================================================
+     CATEGORY 5 — MINI SHOOT (single wide card, no add-on strip)
+     ========================================================= -->
+<section class="price-category">
+    <div class="wrap">
+        <div class="category-head">
+            <h2>Mini Shoot</h2>
+            <p>Click below to see the details and price.</p>
+        </div>
+
+        <div class="tier-row" style="grid-template-columns: 1fr;">
+            <div class="tier-card" data-tier>
+                <button class="tier-toggle" aria-expanded="false">
+                    <span class="tier-icon"><img src="assets/mascot-head-color.png" alt="Mini Shoot"></span>
+                    <span class="tier-name">Mini Shoot</span>
+                    <span class="tier-chevron">▾</span>
+                </button>
+                <div class="tier-body">
+                    <div class="tier-body-inner">
+                        <ul class="tier-features">
+                            <li>Photography (20 Edited Photos) <strong>OR</strong> Videography (1 x 30 Second Reel)</li>
+                            <li>30 Minute Coverage</li>
+                        </ul>
+                        <div class="tier-price">
+                            <span class="price-pill">R 800.00</span>
+                            <p class="price-note">Excluding transport</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
