@@ -378,8 +378,9 @@ section.tight{ padding: 36px 0; }
 /* =========================== VIDEOS =========================== */
 .video-grid{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 .video-card{ border-radius: var(--radius-card); overflow: hidden; background: var(--bg-pill); border: 1px solid var(--line); }
-.video-card .v-frame{ position: relative; aspect-ratio: 16/9; background:#000; }
+.video-card .v-frame{ position: relative; aspect-ratio: 16/9; background:#000; overflow: hidden; }
 .video-card video{ width:100%; height:100%; object-fit:cover; display:block; }
+.video-card .v-frame iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; display:block; }
 .video-card .v-meta{ padding: 16px 20px; display:flex; justify-content:space-between; align-items:center; font-size: 13px; color: var(--ink-soft); font-weight: 600; }
 
 /* =========================================================
@@ -767,17 +768,13 @@ footer.site-footer{
         <div class="video-grid">
             <div class="video-card">
                 <div class="v-frame">
-                    <video controls poster="assets/video1-cover.jpg">
-                        <source src="assets/video1.mp4" type="video/mp4">
-                    </video>
+                    <iframe src="https://www.youtube.com/embed/-P4O9-0Cw4E" title="FOM Studios reel" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="v-meta"><span>Reels</span><span>2026</span></div>
             </div>
             <div class="video-card">
                 <div class="v-frame">
-                    <video controls poster="assets/video2-cover.jpg">
-                        <source src="assets/video2.mp4" type="video/mp4">
-                    </video>
+                    <iframe src="https://www.youtube.com/embed/EP1k_DnKRuM" title="FOM Studios drone shots" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
                 </div>
                 <div class="v-meta"><span>Drone Shots</span><span>2026</span></div>
             </div>
