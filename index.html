@@ -592,6 +592,14 @@ footer.site-footer{
     section{ padding: 36px 0; }
     .hero-ctas{ max-width: 100%; }
 
+    /* on mobile the headline can sit anywhere over the portrait
+       crop, not just the left side like on desktop, so the whole
+       image gets an even dark wash instead of a left-to-right
+       fade — keeps white text readable no matter what's behind it */
+    .hero-media::after{
+        background: rgba(20,20,18,0.45);
+    }
+
     /* about section on mobile: small mascot image centered on its
        own row above the text, rather than side-by-side — keeps
        the same small 88px size, just stacked instead of inline. */
