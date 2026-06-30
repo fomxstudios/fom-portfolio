@@ -125,7 +125,7 @@ nav.pill .nav-links a.active{ color: var(--accent); font-weight: 700; }
    repeated under every package image like the original graphics */
 .prices-note{
     background: var(--bg-pill);
-    border: 1px solid var(--line);
+    border: 1.5px solid var(--ink-soft);
     border-radius: var(--radius-card);
     padding: 18px 24px;
     margin-top: 20px;
@@ -185,6 +185,7 @@ nav.pill .nav-links a.active{ color: var(--accent); font-weight: 700; }
     cursor: pointer;
     text-align: left;
 }
+.tier-toggle:focus-visible{ outline-offset: -3px; }
 
 .tier-icon{
     width: 52px; height: 52px;
@@ -193,14 +194,17 @@ nav.pill .nav-links a.active{ color: var(--accent); font-weight: 700; }
     flex-shrink: 0;
     background: var(--bg);
     border: 1px solid var(--line);
+    padding: 4px;
+    box-sizing: border-box;
 }
-.tier-icon img{ width:100%; height:100%; object-fit:cover; }
+.tier-icon img{ width:100%; height:100%; object-fit:contain; }
 
 .tier-toggle .tier-name{
     font-size: 19px;
     font-weight: 800;
     letter-spacing: 0.01em;
     flex: 1 1 auto;
+    color: var(--ink);
 }
 
 .tier-toggle .tier-chevron{
@@ -334,7 +338,7 @@ nav.pill .nav-links a.active{ color: var(--accent); font-weight: 700; }
     padding: 10px 22px 10px 8px;
 }
 .padel-header .tier-icon{ width: 56px; height: 56px; }
-.padel-header .tier-name{ font-size: 22px; font-weight: 800; }
+.padel-header .tier-name{ font-size: 22px; font-weight: 800; color: var(--ink); }
 
 .padel-features{
     list-style: none;
@@ -622,7 +626,7 @@ footer.site-footer{
                             <li>2 Hour Coverage</li>
                         </ul>
                         <div class="tier-price">
-                            <span class="price-pill">R 3000.00</span>
+                            <span class="price-pill">R 1500.00</span>
                             <p class="price-note">Excluding transport</p>
                         </div>
                     </div>
@@ -646,7 +650,7 @@ footer.site-footer{
                             <li>4 Hour Coverage</li>
                         </ul>
                         <div class="tier-price">
-                            <span class="price-pill">R 6000.00</span>
+                            <span class="price-pill">R 2700.00</span>
                             <p class="price-note">Excluding transport</p>
                         </div>
                     </div>
@@ -672,7 +676,7 @@ footer.site-footer{
                             <li>6 Hour Coverage</li>
                         </ul>
                         <div class="tier-price">
-                            <span class="price-pill">R 9000.00</span>
+                            <span class="price-pill">R 4500.00</span>
                             <p class="price-note">Excluding transport</p>
                         </div>
                     </div>
@@ -724,7 +728,7 @@ footer.site-footer{
                             <li>2 Hour Coverage</li>
                         </ul>
                         <div class="tier-price">
-                            <span class="price-pill">R 2000.00</span>
+                            <span class="price-pill">R 1000.00</span>
                             <p class="price-note">Excluding transport</p>
                         </div>
                     </div>
@@ -746,7 +750,7 @@ footer.site-footer{
                             <li>4 Hour Coverage</li>
                         </ul>
                         <div class="tier-price">
-                            <span class="price-pill">R 4000.00</span>
+                            <span class="price-pill">R 1700.00</span>
                             <p class="price-note">Excluding transport</p>
                         </div>
                     </div>
@@ -770,7 +774,7 @@ footer.site-footer{
                             <li>6 Hour Coverage</li>
                         </ul>
                         <div class="tier-price">
-                            <span class="price-pill">R 6000.00</span>
+                            <span class="price-pill">R 3000.00</span>
                             <p class="price-note">Excluding transport</p>
                         </div>
                     </div>
@@ -820,7 +824,7 @@ footer.site-footer{
                             <li>2 Hour Coverage</li>
                         </ul>
                         <div class="tier-price">
-                            <span class="price-pill">R 1600.00</span>
+                            <span class="price-pill">R 800.00</span>
                             <p class="price-note">Excluding transport</p>
                         </div>
                     </div>
@@ -841,7 +845,7 @@ footer.site-footer{
                             <li>4 Hour Coverage</li>
                         </ul>
                         <div class="tier-price">
-                            <span class="price-pill">R 3200.00</span>
+                            <span class="price-pill">R 1300.00</span>
                             <p class="price-note">Excluding transport</p>
                         </div>
                     </div>
@@ -862,7 +866,7 @@ footer.site-footer{
                             <li>6 Hour Coverage</li>
                         </ul>
                         <div class="tier-price">
-                            <span class="price-pill">R 4800.00</span>
+                            <span class="price-pill">R 1800.00</span>
                             <p class="price-note">Excluding transport</p>
                         </div>
                     </div>
@@ -911,7 +915,7 @@ footer.site-footer{
                             <li>Professionally Edited Photos Per Week</li>
                         </ul>
                         <div class="tier-price">
-                            <span class="price-pill">R 3000.00 <span style="font-size:12px; font-weight:600; opacity:0.7; text-transform:uppercase;">per week</span></span>
+                            <span class="price-pill">R 2500.00 <span style="font-size:12px; font-weight:600; opacity:0.7; text-transform:uppercase;">per week</span></span>
                             <p class="price-note">Excluding transport</p>
                         </div>
                     </div>
@@ -957,7 +961,7 @@ footer.site-footer{
                             <li>30 Minute Coverage</li>
                         </ul>
                         <div class="tier-price">
-                            <span class="price-pill">R 800.00</span>
+                            <span class="price-pill">R 500.00</span>
                             <p class="price-note">Excluding transport</p>
                         </div>
                     </div>
