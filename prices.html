@@ -209,11 +209,17 @@ nav.pill .nav-links a.active{ color: var(--accent); font-weight: 700; }
 .tier-card{
     border-radius: var(--radius-card);
     overflow: hidden;
-    background: var(--bg-dark);
-    border: 2px solid var(--bg-dark);
+    /* transparent when closed — the stretched empty space below
+       the white pill is invisible, so cards look independent */
+    background: transparent;
+    border: 2px solid transparent;
     padding: 6px;
-    display: flex;
-    flex-direction: column;
+    transition: background 0.35s ease, border-color 0.35s ease;
+}
+/* dark background only appears once the card is open */
+.tier-card.open{
+    background: var(--bg-dark);
+    border-color: var(--bg-dark);
 }
 
 .tier-toggle{
@@ -223,13 +229,16 @@ nav.pill .nav-links a.active{ color: var(--accent); font-weight: 700; }
     align-items: center;
     gap: 14px;
     background: var(--bg-pill);
-    border: none;
+    border: 1.5px solid var(--line);
     border-radius: var(--radius-pill);
     margin: 0;
     padding: 8px 18px 8px 8px;
     cursor: pointer;
     text-align: left;
 }
+/* when card is open the dark background frames the pill, so drop
+   the border back to avoid a double-edge look */
+.tier-card.open .tier-toggle{ border-color: transparent; }
 .tier-toggle:focus-visible{ outline-offset: -3px; }
 
 .tier-icon{
@@ -264,16 +273,12 @@ nav.pill .nav-links a.active{ color: var(--accent); font-weight: 700; }
     display: grid;
     grid-template-rows: 0fr;
     transition: grid-template-rows 0.35s ease;
-    flex: 1 1 auto; /* grows to fill remaining card height when open */
 }
 .tier-card.open .tier-body{ grid-template-rows: 1fr; }
 
 .tier-body-inner{
     overflow: hidden;
     min-height: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
 .tier-features{
