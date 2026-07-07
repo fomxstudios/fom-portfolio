@@ -566,6 +566,68 @@ footer.site-footer{
 .booking-note{ font-size: 12px; color: var(--ink-soft); margin-top: 14px; text-align: center; }
 
 /* =========================================================
+   FAQ SECTION
+   Light accordion — each question is a full-width row with a
+   border, expanding to reveal the answer below. Uses the same
+   grid-template-rows: 0fr → 1fr animation as the tier cards.
+   ========================================================= */
+.faq-section{ padding: 64px 0; }
+.faq-section .category-head{ margin-bottom: 32px; }
+
+.faq-list{ display: flex; flex-direction: column; gap: 0; }
+
+.faq-item{
+    border-bottom: 1px solid var(--line);
+}
+.faq-item:first-child{ border-top: 1px solid var(--line); }
+
+.faq-toggle{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: none;
+    border: none;
+    padding: 22px 0;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+}
+.faq-toggle .faq-q{
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+}
+.faq-toggle .faq-chevron{
+    font-size: 18px;
+    color: var(--ink-soft);
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+    line-height: 1;
+}
+.faq-item.open .faq-chevron{ transform: rotate(180deg); }
+
+.faq-body{
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s ease;
+}
+.faq-item.open .faq-body{ grid-template-rows: 1fr; }
+
+.faq-body-inner{
+    overflow: hidden;
+    min-height: 0;
+}
+.faq-answer{
+    padding: 0 0 22px;
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.75;
+    max-width: 72ch;
+}
+
+/* =========================================================
    RESPONSIVE
    ========================================================= */
 @media (max-width: 1024px){
@@ -662,6 +724,7 @@ footer.site-footer{
                 <li><a href="#videography">Videography</a></li>
                 <li><a href="#photo-video">Photography &amp; Video</a></li>
                 <li><a href="#padel-league">Padel League</a></li>
+                <li><a href="#faq">FAQ</a></li>
             </ul>
         </div>
     </div>
@@ -1061,6 +1124,90 @@ footer.site-footer{
     </div>
 </section>
 
+<!-- FAQ SECTION -->
+<section class="faq-section" id="faq">
+    <div class="wrap">
+        <div class="category-head">
+            <h2>Frequently Asked Questions</h2>
+            <p>Everything you need to know before booking.</p>
+        </div>
+
+        <div class="faq-list">
+
+            <div class="faq-item" data-faq>
+                <button class="faq-toggle" aria-expanded="false">
+                    <span class="faq-q">How does pricing work?</span>
+                    <span class="faq-chevron">▾</span>
+                </button>
+                <div class="faq-body"><div class="faq-body-inner">
+                    <p class="faq-answer">Our packages are split into three tiers: Bronze, Silver, and Gold across three service categories; Photography, Videography and Photography &amp; Videography combined. Each tier increases in coverage time, deliverables, and rounds of revisions. We also offer a Mini Shoot for quick, lightweight sessions. All prices are fixed per session and exclude transport costs, any travel required will be quoted separately before you confirm.</p>
+                </div></div>
+            </div>
+
+            <div class="faq-item" data-faq>
+                <button class="faq-toggle" aria-expanded="false">
+                    <span class="faq-q">Can I tailor my package?</span>
+                    <span class="faq-chevron">▾</span>
+                </button>
+                <div class="faq-body"><div class="faq-body-inner">
+                    <p class="faq-answer">Yes, all packages can be adjusted to suit your specific needs. If you need more edited photos, extra reel revisions, drone coverage, or a different coverage duration, just let us know when you enquire and we'll put together a custom quote. Our Add-On options (listed under each category) are a good starting point, but we're always open to building something from scratch if none of the standard tiers quite fit.</p>
+                </div></div>
+            </div>
+
+            <div class="faq-item" data-faq>
+                <button class="faq-toggle" aria-expanded="false">
+                    <span class="faq-q">What payment methods do you accept?</span>
+                    <span class="faq-chevron">▾</span>
+                </button>
+                <div class="faq-body"><div class="faq-body-inner">
+                    <p class="faq-answer">We accept EFT (electronic funds transfer), direct bank deposit, and in-person card payments via Yoco including Apple Pay tap-to-pay. A 50% non-refundable deposit is required to secure your booking, with the remaining balance due before the shoot date.</p>
+                </div></div>
+            </div>
+
+            <div class="faq-item" data-faq>
+                <button class="faq-toggle" aria-expanded="false">
+                    <span class="faq-q">How long until I receive my photos or video?</span>
+                    <span class="faq-chevron">▾</span>
+                </button>
+                <div class="faq-body"><div class="faq-body-inner">
+                    <p class="faq-answer">Delivery timelines are agreed before your shoot so you always know what to expect. If you need your content turned around faster than the standard timeline, a rush delivery option is available for an additional 20% fee. Raw, unedited files are not included in any package unless specifically agreed to upfront.</p>
+                </div></div>
+            </div>
+
+            <div class="faq-item" data-faq>
+                <button class="faq-toggle" aria-expanded="false">
+                    <span class="faq-q">What happens if I need to cancel or reschedule?</span>
+                    <span class="faq-chevron">▾</span>
+                </button>
+                <div class="faq-body"><div class="faq-body-inner">
+                    <p class="faq-answer">Cancellations more than 10 days before the shoot date incur no additional charge beyond the non-refundable deposit. Cancellations within 10 days attract an additional fee of 20% of the outstanding balance. Each booking allows one free reschedule, your payment transfers to the new date, subject to availability. All cancellations must be submitted in writing.</p>
+                </div></div>
+            </div>
+
+            <div class="faq-item" data-faq>
+                <button class="faq-toggle" aria-expanded="false">
+                    <span class="faq-q">Will my photos and videos be used on your social media?</span>
+                    <span class="faq-chevron">▾</span>
+                </button>
+                <div class="faq-body"><div class="faq-body-inner">
+                    <p class="faq-answer">FOM Studios retains the right to use content for portfolio and marketing purposes, including our website and social media, unless a confidentiality agreement is arranged in writing before the shoot. If you'd prefer your content stays private, just let us know during the booking process and we'll accommodate that.</p>
+                </div></div>
+            </div>
+
+            <div class="faq-item" data-faq>
+                <button class="faq-toggle" aria-expanded="false">
+                    <span class="faq-q">Do you travel outside Johannesburg?</span>
+                    <span class="faq-chevron">▾</span>
+                </button>
+                <div class="faq-body"><div class="faq-body-inner">
+                    <p class="faq-answer">Yes, all packages exclude transport costs, which are quoted separately based on the shoot location. Get in touch with your shoot details and we'll include a transport quote along with your package confirmation.</p>
+                </div></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
 <!-- FOOTER -->
 <footer id="contact" class="site-footer">
     <div class="wrap">
@@ -1156,6 +1303,15 @@ document.querySelectorAll('[data-tier]').forEach(card => {
     const toggle = card.querySelector('.tier-toggle');
     toggle.addEventListener('click', () => {
         const isOpen = card.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', isOpen);
+    });
+});
+
+/* ---- FAQ accordion ---- */
+document.querySelectorAll('[data-faq]').forEach(item => {
+    const toggle = item.querySelector('.faq-toggle');
+    toggle.addEventListener('click', () => {
+        const isOpen = item.classList.toggle('open');
         toggle.setAttribute('aria-expanded', isOpen);
     });
 });
