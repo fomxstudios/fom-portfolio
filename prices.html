@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FOM Studios | Prices</title>
+<link rel="icon" type="image/png" href="assets/mascot-head-color.png">
+<link rel="apple-touch-icon" href="assets/mascot-head-color.png">
 <meta name="description" content="FOM Studios photography and videography package prices — Johannesburg, South Africa.">
 
 <style>
@@ -134,6 +136,47 @@ nav.pill .nav-links a.active{ color: var(--accent); font-weight: 700; }
     text-align: center;
 }
 .prices-note strong{ color: var(--ink); }
+
+/* =========================================================
+   PRICES TOC — sticky jump-to-section strip, same pill-chip
+   pattern as the policy page TOC but laid out horizontally
+   since there are only 5 sections and they fit in a row.
+   On mobile it wraps to multiple lines of chips.
+   ========================================================= */
+.prices-toc{
+    margin-top: 24px;
+    background: var(--bg-pill);
+    border: 1.5px solid var(--ink-soft);
+    border-radius: var(--radius-card);
+    padding: 18px 24px;
+}
+.prices-toc p{
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+.prices-toc ul{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.prices-toc a{
+    display: inline-flex;
+    border: 1px solid var(--line);
+    background: var(--bg);
+    border-radius: var(--radius-pill);
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+.prices-toc a:hover{ background: var(--ink); color: var(--bg-pill); border-color: var(--ink); }
 
 /* =========================== CATEGORY BLOCK =========================== */
 .price-category{ padding: 56px 0; border-bottom: 1px solid var(--line); }
@@ -597,10 +640,251 @@ footer.site-footer{
     </div>
 </div>
 
+<!-- PRICES TOC — jump links to each pricing category -->
+<div class="prices-hero" style="padding-top:0; padding-bottom:32px;">
+    <div class="wrap">
+        <div class="prices-toc">
+            <p>Jump to</p>
+            <ul>
+                <li><a href="#mini-shoot">Mini Shoot</a></li>
+                <li><a href="#photography">Photography</a></li>
+                <li><a href="#videography">Videography</a></li>
+                <li><a href="#photo-video">Photography &amp; Video</a></li>
+                <li><a href="#padel-league">Padel League</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
 <!-- =========================================================
-     CATEGORY 1 — PHOTOGRAPHY & VIDEOGRAPHY
+     CATEGORY 1 — MINI SHOOT (single wide card, no add-on strip)
      ========================================================= -->
-<section class="price-category">
+<section class="price-category" id="mini-shoot">
+    <div class="wrap">
+        <div class="category-head">
+            <h2>Mini Shoot</h2>
+            <p>Click below to see the details and price.</p>
+        </div>
+
+        <div class="tier-row" style="grid-template-columns: 1fr;">
+            <div class="tier-card" data-tier>
+                <button class="tier-toggle" aria-expanded="false">
+                    <span class="tier-icon"><img src="assets/mascot-head-color.png" alt="Mini Shoot"></span>
+                    <span class="tier-name">Mini Shoot</span>
+                    <span class="tier-chevron">▾</span>
+                </button>
+                <div class="tier-body">
+                    <div class="tier-body-inner">
+                        <ul class="tier-features">
+                            <li>Photography (20 Edited Photos) <strong>OR</strong> Videography (1 x 30 Second Reel)</li>
+                            <li>30 Minute Coverage</li>
+                        </ul>
+                        <div class="tier-price">
+                            <span class="price-pill">R 500.00</span>
+                            <p class="price-note">Excluding transport</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BOOK A SHOOT CTA -->
+
+<!-- =========================================================
+     CATEGORY 2 — PHOTOGRAPHY
+     ========================================================= -->
+<section class="price-category" id="photography">
+    <div class="wrap">
+        <div class="category-head">
+            <h2>Photography</h2>
+            <p>Click a package below to see the details and price.</p>
+        </div>
+
+        <div class="tier-row">
+
+            <div class="tier-card" data-tier>
+                <button class="tier-toggle" aria-expanded="false">
+                    <span class="tier-icon"><img src="assets/mascot-head-bronze.jpg" alt="Bronze tier"></span>
+                    <span class="tier-name">Bronze</span>
+                    <span class="tier-chevron">▾</span>
+                </button>
+                <div class="tier-body">
+                    <div class="tier-body-inner">
+                        <ul class="tier-features">
+                            <li>1 Photographer</li>
+                            <li>30-40 Edited Photos</li>
+                            <li>2 Hour Coverage</li>
+                        </ul>
+                        <div class="tier-price">
+                            <span class="price-pill">R 800.00</span>
+                            <p class="price-note">Excluding transport</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier-card" data-tier>
+                <button class="tier-toggle" aria-expanded="false">
+                    <span class="tier-icon"><img src="assets/mascot-head-silver.jpg" alt="Silver tier"></span>
+                    <span class="tier-name">Silver</span>
+                    <span class="tier-chevron">▾</span>
+                </button>
+                <div class="tier-body">
+                    <div class="tier-body-inner">
+                        <ul class="tier-features">
+                            <li>1 Photographer</li>
+                            <li>40-50 Edited Photos</li>
+                            <li>4 Hour Coverage</li>
+                        </ul>
+                        <div class="tier-price">
+                            <span class="price-pill">R 1300.00</span>
+                            <p class="price-note">Excluding transport</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier-card" data-tier>
+                <button class="tier-toggle" aria-expanded="false">
+                    <span class="tier-icon"><img src="assets/mascot-head-gold.jpg" alt="Gold tier"></span>
+                    <span class="tier-name">Gold</span>
+                    <span class="tier-chevron">▾</span>
+                </button>
+                <div class="tier-body">
+                    <div class="tier-body-inner">
+                        <ul class="tier-features">
+                            <li>1 Photographer</li>
+                            <li>50-60 Edited Photos</li>
+                            <li>6 Hour Coverage</li>
+                        </ul>
+                        <div class="tier-price">
+                            <span class="price-pill">R 1800.00</span>
+                            <p class="price-note">Excluding transport</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="addon-strip">
+            <div class="addon-badge">
+                <span class="tier-icon"><img src="assets/mascot-head-color.png" alt="Add-on"></span>
+                <span>Add-On</span>
+            </div>
+            <ul class="addon-list">
+                <li>Additional Photos</li>
+                <li>Additional Revisions</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+<!-- =========================================================
+     CATEGORY 3 — VIDEOGRAPHY
+     ========================================================= -->
+<section class="price-category" id="videography">
+    <div class="wrap">
+        <div class="category-head">
+            <h2>Videography</h2>
+            <p>Click a package below to see the details and price.</p>
+        </div>
+
+        <div class="tier-row">
+
+            <div class="tier-card" data-tier>
+                <button class="tier-toggle" aria-expanded="false">
+                    <span class="tier-icon"><img src="assets/mascot-head-bronze.jpg" alt="Bronze tier"></span>
+                    <span class="tier-name">Bronze</span>
+                    <span class="tier-chevron">▾</span>
+                </button>
+                <div class="tier-body">
+                    <div class="tier-body-inner">
+                        <ul class="tier-features">
+                            <li>1 Videographer</li>
+                            <li>1 (30-60) Second Reel</li>
+                            <li>2 rounds of revisions on the reel</li>
+                            <li>2 Hour Coverage</li>
+                        </ul>
+                        <div class="tier-price">
+                            <span class="price-pill">R 1000.00</span>
+                            <p class="price-note">Excluding transport</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier-card" data-tier>
+                <button class="tier-toggle" aria-expanded="false">
+                    <span class="tier-icon"><img src="assets/mascot-head-silver.jpg" alt="Silver tier"></span>
+                    <span class="tier-name">Silver</span>
+                    <span class="tier-chevron">▾</span>
+                </button>
+                <div class="tier-body">
+                    <div class="tier-body-inner">
+                        <ul class="tier-features">
+                            <li>1 Videographer</li>
+                            <li>2 (30-60) Second Reels</li>
+                            <li>2 rounds of revisions on the reel</li>
+                            <li>4 Hour Coverage</li>
+                        </ul>
+                        <div class="tier-price">
+                            <span class="price-pill">R 1700.00</span>
+                            <p class="price-note">Excluding transport</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tier-card" data-tier>
+                <button class="tier-toggle" aria-expanded="false">
+                    <span class="tier-icon"><img src="assets/mascot-head-gold.jpg" alt="Gold tier"></span>
+                    <span class="tier-name">Gold</span>
+                    <span class="tier-chevron">▾</span>
+                </button>
+                <div class="tier-body">
+                    <div class="tier-body-inner">
+                        <ul class="tier-features">
+                            <li>1 Videographer</li>
+                            <li>1 (2-3) Minute Reel</li>
+                            <li>1 (30-60) Second Reel</li>
+                            <li>Drone Coverage</li>
+                            <li>2 rounds of revisions on the reel</li>
+                            <li>6 Hour Coverage</li>
+                        </ul>
+                        <div class="tier-price">
+                            <span class="price-pill">R 3000.00</span>
+                            <p class="price-note">Excluding transport</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="addon-strip">
+            <div class="addon-badge">
+                <span class="tier-icon"><img src="assets/mascot-head-color.png" alt="Add-on"></span>
+                <span>Add-On</span>
+            </div>
+            <ul class="addon-list">
+                <li>(30-60) Second Reel</li>
+                <li>(2-3) Minute Reel</li>
+                <li>Additional Revisions</li>
+                <li>Drone Coverage</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+<!-- =========================================================
+     CATEGORY 4 — PHOTOGRAPHY & VIDEOGRAPHY
+     ========================================================= -->
+<section class="price-category" id="photo-video">
     <div class="wrap">
         <div class="category-head">
             <h2>Photography &amp; Videography</h2>
@@ -701,197 +985,11 @@ footer.site-footer{
     </div>
 </section>
 
-<!-- =========================================================
-     CATEGORY 2 — VIDEOGRAPHY
-     ========================================================= -->
-<section class="price-category">
-    <div class="wrap">
-        <div class="category-head">
-            <h2>Videography</h2>
-            <p>Click a package below to see the details and price.</p>
-        </div>
-
-        <div class="tier-row">
-
-            <div class="tier-card" data-tier>
-                <button class="tier-toggle" aria-expanded="false">
-                    <span class="tier-icon"><img src="assets/mascot-head-bronze.jpg" alt="Bronze tier"></span>
-                    <span class="tier-name">Bronze</span>
-                    <span class="tier-chevron">▾</span>
-                </button>
-                <div class="tier-body">
-                    <div class="tier-body-inner">
-                        <ul class="tier-features">
-                            <li>1 Videographer</li>
-                            <li>1 (30-60) Second Reel</li>
-                            <li>2 rounds of revisions on the reel</li>
-                            <li>2 Hour Coverage</li>
-                        </ul>
-                        <div class="tier-price">
-                            <span class="price-pill">R 1000.00</span>
-                            <p class="price-note">Excluding transport</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tier-card" data-tier>
-                <button class="tier-toggle" aria-expanded="false">
-                    <span class="tier-icon"><img src="assets/mascot-head-silver.jpg" alt="Silver tier"></span>
-                    <span class="tier-name">Silver</span>
-                    <span class="tier-chevron">▾</span>
-                </button>
-                <div class="tier-body">
-                    <div class="tier-body-inner">
-                        <ul class="tier-features">
-                            <li>1 Videographer</li>
-                            <li>2 (30-60) Second Reels</li>
-                            <li>2 rounds of revisions on the reel</li>
-                            <li>4 Hour Coverage</li>
-                        </ul>
-                        <div class="tier-price">
-                            <span class="price-pill">R 1700.00</span>
-                            <p class="price-note">Excluding transport</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tier-card" data-tier>
-                <button class="tier-toggle" aria-expanded="false">
-                    <span class="tier-icon"><img src="assets/mascot-head-gold.jpg" alt="Gold tier"></span>
-                    <span class="tier-name">Gold</span>
-                    <span class="tier-chevron">▾</span>
-                </button>
-                <div class="tier-body">
-                    <div class="tier-body-inner">
-                        <ul class="tier-features">
-                            <li>1 Videographer</li>
-                            <li>1 (2-3) Minute Reel</li>
-                            <li>1 (30-60) Second Reel</li>
-                            <li>Drone Coverage</li>
-                            <li>2 rounds of revisions on the reel</li>
-                            <li>6 Hour Coverage</li>
-                        </ul>
-                        <div class="tier-price">
-                            <span class="price-pill">R 3000.00</span>
-                            <p class="price-note">Excluding transport</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="addon-strip">
-            <div class="addon-badge">
-                <span class="tier-icon"><img src="assets/mascot-head-color.png" alt="Add-on"></span>
-                <span>Add-On</span>
-            </div>
-            <ul class="addon-list">
-                <li>(30-60) Second Reel</li>
-                <li>(2-3) Minute Reel</li>
-                <li>Additional Revisions</li>
-                <li>Drone Coverage</li>
-            </ul>
-        </div>
-    </div>
-</section>
 
 <!-- =========================================================
-     CATEGORY 3 — PHOTOGRAPHY
+     CATEGORY 5 — PADEL LEAGUE PACKAGE (single wide card)
      ========================================================= -->
-<section class="price-category">
-    <div class="wrap">
-        <div class="category-head">
-            <h2>Photography</h2>
-            <p>Click a package below to see the details and price.</p>
-        </div>
-
-        <div class="tier-row">
-
-            <div class="tier-card" data-tier>
-                <button class="tier-toggle" aria-expanded="false">
-                    <span class="tier-icon"><img src="assets/mascot-head-bronze.jpg" alt="Bronze tier"></span>
-                    <span class="tier-name">Bronze</span>
-                    <span class="tier-chevron">▾</span>
-                </button>
-                <div class="tier-body">
-                    <div class="tier-body-inner">
-                        <ul class="tier-features">
-                            <li>1 Photographer</li>
-                            <li>30-40 Edited Photos</li>
-                            <li>2 Hour Coverage</li>
-                        </ul>
-                        <div class="tier-price">
-                            <span class="price-pill">R 800.00</span>
-                            <p class="price-note">Excluding transport</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tier-card" data-tier>
-                <button class="tier-toggle" aria-expanded="false">
-                    <span class="tier-icon"><img src="assets/mascot-head-silver.jpg" alt="Silver tier"></span>
-                    <span class="tier-name">Silver</span>
-                    <span class="tier-chevron">▾</span>
-                </button>
-                <div class="tier-body">
-                    <div class="tier-body-inner">
-                        <ul class="tier-features">
-                            <li>1 Photographer</li>
-                            <li>40-50 Edited Photos</li>
-                            <li>4 Hour Coverage</li>
-                        </ul>
-                        <div class="tier-price">
-                            <span class="price-pill">R 1300.00</span>
-                            <p class="price-note">Excluding transport</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tier-card" data-tier>
-                <button class="tier-toggle" aria-expanded="false">
-                    <span class="tier-icon"><img src="assets/mascot-head-gold.jpg" alt="Gold tier"></span>
-                    <span class="tier-name">Gold</span>
-                    <span class="tier-chevron">▾</span>
-                </button>
-                <div class="tier-body">
-                    <div class="tier-body-inner">
-                        <ul class="tier-features">
-                            <li>1 Photographer</li>
-                            <li>50-60 Edited Photos</li>
-                            <li>6 Hour Coverage</li>
-                        </ul>
-                        <div class="tier-price">
-                            <span class="price-pill">R 1800.00</span>
-                            <p class="price-note">Excluding transport</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="addon-strip">
-            <div class="addon-badge">
-                <span class="tier-icon"><img src="assets/mascot-head-color.png" alt="Add-on"></span>
-                <span>Add-On</span>
-            </div>
-            <ul class="addon-list">
-                <li>Additional Photos</li>
-                <li>Additional Revisions</li>
-            </ul>
-        </div>
-    </div>
-</section>
-
-<!-- =========================================================
-     CATEGORY 4 — PADEL LEAGUE PACKAGE (single wide card)
-     ========================================================= -->
-<section class="price-category">
+<section class="price-category" id="padel-league">
     <div class="wrap">
         <div class="category-head">
             <h2>Padel League Package</h2>
@@ -937,41 +1035,7 @@ footer.site-footer{
     </div>
 </section>
 
-<!-- =========================================================
-     CATEGORY 5 — MINI SHOOT (single wide card, no add-on strip)
-     ========================================================= -->
-<section class="price-category">
-    <div class="wrap">
-        <div class="category-head">
-            <h2>Mini Shoot</h2>
-            <p>Click below to see the details and price.</p>
-        </div>
 
-        <div class="tier-row" style="grid-template-columns: 1fr;">
-            <div class="tier-card" data-tier>
-                <button class="tier-toggle" aria-expanded="false">
-                    <span class="tier-icon"><img src="assets/mascot-head-color.png" alt="Mini Shoot"></span>
-                    <span class="tier-name">Mini Shoot</span>
-                    <span class="tier-chevron">▾</span>
-                </button>
-                <div class="tier-body">
-                    <div class="tier-body-inner">
-                        <ul class="tier-features">
-                            <li>Photography (20 Edited Photos) <strong>OR</strong> Videography (1 x 30 Second Reel)</li>
-                            <li>30 Minute Coverage</li>
-                        </ul>
-                        <div class="tier-price">
-                            <span class="price-pill">R 500.00</span>
-                            <p class="price-note">Excluding transport</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- BOOK A SHOOT CTA -->
 <section class="price-category" style="border-bottom:none;">
     <div class="wrap">
         <div class="cta-band">
