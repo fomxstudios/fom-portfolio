@@ -147,6 +147,19 @@ nav.pill .nav-links a:hover{ color: var(--ink-soft); }
     white-space: nowrap;
 }
 
+/* small text link below hero pills — visible on mobile where the
+   nav is collapsed and visitors can't find the Prices nav link */
+.hero-prices-link{
+    display: none; /* hidden on desktop — nav link does the job there */
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--ink-on-dark);
+    opacity: 0.75;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    align-self: flex-start;
+}
+
 /* mobile slide-out menu */
 .mobile-menu{
     position: fixed;
@@ -585,6 +598,7 @@ footer.site-footer{
 
 @media (max-width: 860px){
     nav.pill .nav-links{ display:none; }
+    .hero-prices-link{ display: inline-block; }
     .nav-shell{ padding: 14px var(--gutter) 0; }
 }
 
@@ -704,6 +718,7 @@ footer.site-footer{
             <div class="hero-ctas">
                 <a href="#contact" class="btn-pill filled" data-open-booking>Book a shoot</a>
                 <a href="#work" class="btn-pill">See our work</a>
+                <a href="prices.html" class="hero-prices-link">View our pricing →</a>
             </div>
         </div>
     </div>
