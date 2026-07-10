@@ -278,10 +278,25 @@ nav.pill{
         <p>Questions? Contact us at <a href="mailto:fomxstudios@gmail.com">fomxstudios@gmail.com</a> or <a href="https://wa.me/27737553136">WhatsApp</a></p>
     </footer>
 </div>
-
-<!-- Firebase SDK loaded on demand -->
-<script src="firebase-config.js"></script>
 <script>
+/* Firebase config embedded directly so the portal works on the public site
+   without needing firebase-config.js as a sibling file */
+var firebaseConfig = {
+  apiKey:            "AIzaSyCbRXQmIxzVWuFS0CRmDY33qYuzpcVL80A",
+  authDomain:        "fom-studios.firebaseapp.com",
+  projectId:         "fom-studios",
+  storageBucket:     "fom-studios.firebasestorage.app",
+  messagingSenderId: "1049126528829",
+  appId:             "1:1049126528829:web:8ed0ea930e0b1579630754"
+};
+</script>
+<script type="module">
+import { initializeApp, getApp }                                    from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail,
+         onAuthStateChanged, signOut }                               from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import { getFirestore, collection, onSnapshot }                      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+
 /* ============================================================
    STATUS CONFIG — colours + progress steps
    A client's status maps to a step number (0-based) in the
@@ -428,12 +443,9 @@ function buildCard(o){
 /* ============================================================
    FIREBASE INIT
    ============================================================ */
-const configured = (typeof firebaseConfig!=='undefined') && firebaseConfig &&
-    !String(firebaseConfig.apiKey||'').startsWith('PASTE');
+const configured = true; // config is embedded directly above
 
-function loadScript(src){ return new Promise((res,rej)=>{ const s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=rej; document.head.appendChild(s); }); }
-
-async function init(){
+function init(){
     if(!configured){
         $('loginGate').innerHTML = `<div class="login-card">
             <div class="brand">FOM STUDIOS</div>
@@ -442,23 +454,21 @@ async function init(){
         return;
     }
 
-    const b = 'https://www.gstatic.com/firebasejs/10.12.0/';
-    await loadScript(b+'firebase-app-compat.js');
-    await Promise.all([
-        loadScript(b+'firebase-auth-compat.js'),
-        loadScript(b+'firebase-firestore-compat.js')
-    ]);
-
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db   = firebase.firestore();
-    db.settings({ experimentalAutoDetectLongPolling: true });
+    // Firebase SDKs are loaded in <head> — initialise directly
+    // Guard against double-init (throws if called twice with same app name)
+    // Guard against double-init on page reload
+    let app;
+    try { app = initializeApp(firebaseConfig); }
+    catch(e) { app = getApp(); }
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+    
 
     /* --- password reset --- */
     $('resetLink').addEventListener('click', () => {
         const email = $('lgEmail').value.trim();
         if(!email){ $('lgErr').textContent = 'Enter your email address first.'; return; }
-        auth.sendPasswordResetEmail(email)
+        sendPasswordResetEmail(auth, email)
             .then(()=>{ $('lgErr').style.color='#27ae60'; $('lgErr').textContent='Reset email sent — check your inbox.'; })
             .catch(err=>{ $('lgErr').style.color='#c0392b'; $('lgErr').textContent = err.message||'Could not send reset email.'; });
     });
@@ -467,7 +477,7 @@ async function init(){
     const login = () => {
         $('lgErr').textContent = '';
         $('lgErr').style.color = '#c0392b';
-        auth.signInWithEmailAndPassword($('lgEmail').value.trim(), $('lgPass').value)
+        signInWithEmailAndPassword(auth, $('lgEmail').value.trim(), $('lgPass').value)
             .catch(err => {
                 $('lgErr').textContent = /password|user|credential|email/i.test(err.code||'')
                     ? 'Incorrect email or password.' : (err.message||'Sign in failed.');
@@ -477,7 +487,7 @@ async function init(){
     $('lgPass').addEventListener('keydown', e => { if(e.key==='Enter') login(); });
 
     /* --- auth state --- */
-    auth.onAuthStateChanged(user => {
+    onAuthStateChanged(auth, user => {
         if(user){
             $('loginGate').style.display = 'none';
             $('mainApp').style.display = 'block';
@@ -487,12 +497,12 @@ async function init(){
             $('greetingName').textContent = 'Welcome, ' + name.charAt(0).toUpperCase() + name.slice(1);
 
             // listen to orders in real time, filtered client-side
-            db.collection('orders').onSnapshot(snap => {
+            onSnapshot(collection(db, 'orders'), snap => {
                 const orders = snap.docs.map(d => ({id:d.id, ...d.data()}));
                 renderOrders(orders, user.email);
             }, err => console.warn('Firestore:', err));
 
-            $('logoutBtn').addEventListener('click', () => auth.signOut());
+            $('logoutBtn').addEventListener('click', () => signOut(auth));
         } else {
             $('loginGate').style.display = 'flex';
             $('mainApp').style.display = 'none';
@@ -500,7 +510,8 @@ async function init(){
     });
 }
 
-init().catch(console.error);
+init();
+
 </script>
 </body>
 </html>
