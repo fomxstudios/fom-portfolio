@@ -161,14 +161,16 @@ nav.pill{
 .deliverables-section h3{font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);margin-bottom:12px;}
 
 .status-timeline{
-    display:flex;align-items:center;gap:0;
+    display:flex;align-items:stretch;gap:0;
     border:1px solid var(--line);border-radius:var(--radius-pill);overflow:hidden;
     background:var(--bg);
 }
 .timeline-step{
-    flex:1;text-align:center;padding:12px 8px;font-size:12px;font-weight:600;
+    flex:1;text-align:center;padding:10px 4px;font-size:11px;font-weight:600;
     color:var(--ink-soft);position:relative;
     border-right:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    line-height:1.2;white-space:nowrap;
 }
 .timeline-step:last-child{border-right:none;}
 .timeline-step.done{background:var(--accent);color:#fff;}
@@ -225,9 +227,7 @@ nav.pill{
 }
 @media(max-width:400px){
     .detail-grid{grid-template-columns:1fr;}
-    .status-timeline{flex-direction:column;border-radius:var(--radius-card);}
-    .timeline-step{border-right:none;border-bottom:1px solid var(--line);}
-    .timeline-step:last-child{border-bottom:none;}
+    .timeline-step{font-size:10px;padding:8px 2px;}
 }
 </style>
 </head>
