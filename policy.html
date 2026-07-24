@@ -213,6 +213,121 @@ footer.site-footer{
     .footer-brand{ grid-column: span 2; }
     .footer-bottom{ flex-direction:column; align-items:flex-start; }
 }
+
+/* ============= BOOKING POPUP (ported from index.html) ============= */
+.booking-overlay{
+    display:none;
+    position: fixed; inset:0;
+    z-index: 2100;
+    background: rgba(20,20,18,0.55);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.booking-overlay.show{ display:flex; }
+
+.booking-modal{
+    background: var(--bg-pill);
+    border-radius: var(--radius-card);
+    border: 1px solid var(--line);
+    max-width: 440px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 32px;
+    position: relative;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+}
+
+.booking-close{
+    position: absolute;
+    top: 18px; right: 18px;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--bg-pill);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--ink);
+}
+.booking-close:hover{ background: var(--ink); color: var(--bg-pill); border-color: var(--ink); }
+
+.booking-modal h3{ font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+.booking-modal .booking-sub{ color: var(--ink-soft); font-size: 14px; margin-bottom: 22px; }
+
+.booking-field{ margin-bottom: 16px; }
+.booking-field label{
+    display:block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+}
+.booking-field input,
+.booking-field textarea{
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--ink);
+    background: #fff;
+    resize: vertical;
+}
+.booking-field input:focus,
+.booking-field textarea:focus{
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+}
+
+.booking-actions{
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.booking-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 8px;
+    border-radius: var(--radius-pill);
+    padding: 14px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: 0.2s ease;
+}
+
+.booking-btn.email{
+    background: var(--accent);
+    color: var(--ink-on-dark);
+}
+.booking-btn.email:hover{ background: var(--accent-hover); }
+
+.booking-btn.whatsapp{
+    background: #25D366;
+    color: #0b1f12;
+}
+.booking-btn.whatsapp:hover{ background: #1ebc59; }
+
+.booking-btn svg{ width: 18px; height: 18px; flex-shrink: 0; }
+
+.booking-note{
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 14px;
+    text-align: center;
+}
+.booking-field-err{ font-size: 12.5px; color: #c0392b; margin: -8px 0 14px; min-height: 16px; text-align: left; }
+.booking-btn.email.sent{ background: #27ae60; cursor: default; }
+.booking-btn.email:disabled{ opacity: 0.75; cursor: default; }
 </style>
 </head>
 
@@ -256,7 +371,7 @@ footer.site-footer{
                 <li><a href="prices.html">Prices</a></li>
                 <li><a href="policy.html">Policy</a></li>
             </ul>
-            <a href="index.html#contact" class="nav-cta">Book a shoot</a>
+            <a href="#" class="nav-cta" data-open-booking>Book a shoot</a>
         </div>
     </nav>
 </div>
@@ -407,6 +522,39 @@ footer.site-footer{
     </div>
 </footer>
 
+<div class="booking-overlay" id="bookingOverlay">
+    <div class="booking-modal">
+        <button class="booking-close" id="bookingClose" aria-label="Close">&times;</button>
+        <h3>Book a shoot</h3>
+        <p class="booking-sub">Tell us a bit about what you need, then send it however suits you.</p>
+
+        <div class="booking-field">
+            <label for="bookingName">Your name</label>
+            <input type="text" id="bookingName" placeholder="Jane Doe" autocomplete="name">
+        </div>
+        <div class="booking-field">
+            <label for="bookingEmail">Your email</label>
+            <input type="email" id="bookingEmail" placeholder="jane@email.com" autocomplete="email">
+        </div>
+        <div class="booking-field">
+            <label for="bookingMessage">Message</label>
+            <textarea id="bookingMessage" rows="4" placeholder="Date, location, and what you'd like covered..."></textarea>
+        </div>
+        <p class="booking-field-err" id="bookingErr"></p>
+
+        <div class="booking-actions">
+            <button class="booking-btn email" id="bookingEmailBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6l9 7 9-7" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg>
+                <span id="bookingEmailBtnLabel">Send Message</span>
+            </button>
+            <button class="booking-btn whatsapp" id="bookingWhatsappBtn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.3A8.8 8.8 0 0 0 12 4a8.8 8.8 0 0 0-7.6 13.2L3 21l3.9-1.3A8.8 8.8 0 0 0 12 20a8.8 8.8 0 0 0 5.6-15.7zM12 18.3c-1.4 0-2.7-.4-3.9-1.1l-.3-.2-2.7.9.9-2.6-.2-.3A6.9 6.9 0 0 1 12 5.7a6.9 6.9 0 0 1 0 12.6zm3.8-5.2c-.2-.1-1.2-.6-1.4-.7-.2-.1-.3-.1-.5.1-.1.2-.5.7-.7.8-.1.2-.3.2-.5.1-.6-.3-1.2-.7-1.7-1.2-.4-.4-.8-1-1.1-1.6-.1-.2 0-.4.1-.5l.4-.4c.1-.2.2-.3.1-.5l-.6-1.4c-.2-.4-.4-.3-.5-.3h-.5c-.2 0-.4.1-.5.2-.2.2-.7.7-.7 1.6 0 .9.7 1.9.8 2 .1.1 1.4 2.1 3.3 2.9 1.9.8 1.9.5 2.3.5.3 0 1.1-.4 1.2-.9.2-.4.2-.8.1-.9-.1-.1-.2-.2-.4-.3z"/></svg>
+                Message on WhatsApp
+            </button>
+        </div>
+        <p class="booking-note">Sending your message adds you to our mailing list for booking updates and promos. WhatsApp opens a chat with FOM Studios.</p>
+    </div>
+</div>
 <script>
 const navToggle = document.getElementById('navToggle');
 const mobileMenu = document.getElementById('mobileMenu');
@@ -419,6 +567,135 @@ navToggle.addEventListener('click', openMenu);
 closeMenu.addEventListener('click', closeMenuFn);
 scrim.addEventListener('click', closeMenuFn);
 document.querySelectorAll('[data-menu-link]').forEach(a => a.addEventListener('click', closeMenuFn));
+
+
+/* WHATSAPP_NUMBER must be in international format, digits only,
+   no leading 0 or +. FOM's site phone is 073 755 3136 — assuming
+   this is the WhatsApp number, the SA country code (27) replaces
+   the leading 0: 27737553136. Double check this is correct and
+   WhatsApp-enabled before going live. */
+const WHATSAPP_NUMBER = '27737553136';
+
+/* ---- Brevo "Book a Shoot" form — submits silently in the background,
+   no mail app opens. Field names (NAME, EMAIL, MESSAGE) and the action
+   URL come directly from the embed code generated in Brevo. ---- */
+const BREVO_ACTION_URL = 'https://4a304569.sibforms.com/serve/MUIFAGG9_KYYmUxA858_I5BB08GbKHrD20b7Qu_ngdDANUgWNYUNj38NdJmLto6JJGisaMvqqWNQKxzDn8bLalLIxZIu4NvmnUFlfWCNX_-HIp9UlQxlvteCIew7yA9_9HwhZCoDlyo7ZEijWoZCEU3ODv16iUi3jp-y7IMmwZPXbLAiVpXLvP10Tf4HiaovQGskaowAbnEUANRuHg==';
+
+/* Submits a form to Brevo via a hidden iframe so the visitor's page
+   never navigates away and no mail app or new tab opens. Forms (unlike
+   fetch/XHR) aren't blocked by CORS when posting cross-origin, and
+   targeting a hidden iframe keeps the response off-screen. */
+function submitToBrevo(fields){
+    return new Promise((resolve) => {
+        const iframeName = 'brevo-submit-' + Date.now();
+        const iframe = document.createElement('iframe');
+        iframe.name = iframeName;
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = BREVO_ACTION_URL;
+        form.target = iframeName;
+        form.style.display = 'none';
+
+        const data = { ...fields, email_address_check: '', locale: 'en' };
+        Object.keys(data).forEach(key => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = data[key];
+            form.appendChild(input);
+        });
+
+        document.body.appendChild(form);
+        form.submit();
+
+        setTimeout(() => {
+            resolve();
+            form.remove();
+            iframe.remove();
+        }, 900);
+    });
+}
+
+/* ---- booking popup: open/close + send via email or WhatsApp ---- */
+const bookingOverlay = document.getElementById('bookingOverlay');
+const bookingClose = document.getElementById('bookingClose');
+const bookingName = document.getElementById('bookingName');
+const bookingEmail = document.getElementById('bookingEmail');
+const bookingMessage = document.getElementById('bookingMessage');
+const bookingErr = document.getElementById('bookingErr');
+const bookingEmailBtn = document.getElementById('bookingEmailBtn');
+const bookingEmailBtnLabel = document.getElementById('bookingEmailBtnLabel');
+const bookingWhatsappBtn = document.getElementById('bookingWhatsappBtn');
+
+function openBooking(){
+    bookingOverlay.classList.add('show');
+    bookingName.focus();
+}
+function closeBooking(){
+    bookingOverlay.classList.remove('show');
+}
+
+document.querySelectorAll('[data-open-booking]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault(); // these are <a> tags with #contact fallback hrefs
+        openBooking();
+    });
+});
+bookingClose.addEventListener('click', closeBooking);
+bookingOverlay.addEventListener('click', (e) => {
+    if (e.target === bookingOverlay) closeBooking();
+});
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeBooking();
+});
+
+function buildMessage(){
+    const name = bookingName.value.trim();
+    const msg = bookingMessage.value.trim();
+    let text = msg || "Hi FOM Studios, I'd like to book a shoot.";
+    if (name) text = `Hi FOM Studios, I'm ${name}. ${msg || "I'd like to book a shoot."}`;
+    return text;
+}
+
+function isValidEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+bookingEmailBtn.addEventListener('click', async () => {
+    const name = bookingName.value.trim();
+    const email = bookingEmail.value.trim();
+    const message = bookingMessage.value.trim();
+
+    bookingErr.textContent = '';
+    if (!name){ bookingErr.textContent = 'Please enter your name.'; bookingName.focus(); return; }
+    if (!email || !isValidEmail(email)){ bookingErr.textContent = 'Please enter a valid email address.'; bookingEmail.focus(); return; }
+    if (!message){ bookingErr.textContent = 'Let us know a bit about what you need.'; bookingMessage.focus(); return; }
+
+    bookingEmailBtn.disabled = true;
+    bookingEmailBtnLabel.textContent = 'Sending…';
+
+    await submitToBrevo({ NAME: name, EMAIL: email, MESSAGE: message });
+
+    bookingEmailBtn.classList.add('sent');
+    bookingEmailBtnLabel.textContent = 'Sent ✓';
+
+    setTimeout(() => {
+        bookingEmailBtn.disabled = false;
+        bookingEmailBtn.classList.remove('sent');
+        bookingEmailBtnLabel.textContent = 'Send Message';
+        bookingName.value = '';
+        bookingEmail.value = '';
+        bookingMessage.value = '';
+        closeBooking();
+    }, 1800);
+});
+
+bookingWhatsappBtn.addEventListener('click', () => {
+    const text = buildMessage();
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
+});
 </script>
 
 </body>
